@@ -337,13 +337,13 @@
             overflow: hidden;
         }
 
-        /* Irregular shoreline */
+        /* Irregular shoreline - REDUCED HEIGHT */
         .shoreline {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3rem;
+            height: 1.8rem; /* Reducido de 3rem a 1.8rem (2/5 menos) */
             background: rgba(59, 130, 246, 0.4);
             clip-path: polygon(
                 0% 60%, 
@@ -373,7 +373,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 2rem;
+            height: 1.2rem; /* Reducido de 2rem a 1.2rem (2/5 menos) */
             background: rgba(255, 255, 255, 0.6);
             clip-path: polygon(
                 0% 70%, 
@@ -397,13 +397,13 @@
             animation: shoreline-foam-animation 3s ease-in-out infinite;
         }
 
-        /* Wave animations */
+        /* Wave animations - ADJUSTED POSITIONS */
         .wave-large {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 300%;
-            height: 7.5rem;
+            height: 6rem; /* Reducido ligeramente para mejor proporción */
             background: linear-gradient(to right, 
                 transparent, 
                 rgba(255, 255, 255, 0.08), 
@@ -421,14 +421,36 @@
             animation: wave-large-animation 10s ease-in-out infinite reverse;
             animation-delay: 2s;
             opacity: 0.3;
-            height: 6.25rem;
+            height: 5rem;
         }
 
         .wave-large-3 {
             animation: wave-large-animation 12s ease-in-out infinite;
             animation-delay: 4s;
             opacity: 0.2;
-            height: 5rem;
+            height: 4rem;
+        }
+
+        /* Additional large waves for mobile */
+        .wave-large-4 {
+            animation: wave-large-animation 9s ease-in-out infinite reverse;
+            animation-delay: 1s;
+            opacity: 0.25;
+            height: 4.5rem;
+        }
+
+        .wave-large-5 {
+            animation: wave-large-animation 11s ease-in-out infinite;
+            animation-delay: 3s;
+            opacity: 0.2;
+            height: 4.2rem;
+        }
+
+        .wave-large-6 {
+            animation: wave-large-animation 13s ease-in-out infinite reverse;
+            animation-delay: 5s;
+            opacity: 0.15;
+            height: 3.5rem;
         }
 
         .wave-medium {
@@ -436,7 +458,7 @@
             bottom: 0;
             left: 0;
             width: 200%;
-            height: 3.75rem;
+            height: 3rem; /* Ajustado para mejor proporción */
             background: linear-gradient(to right, 
                 transparent, 
                 rgba(255, 255, 255, 0.12), 
@@ -454,21 +476,50 @@
             animation: wave-medium-animation 5s ease-in-out infinite reverse;
             animation-delay: 1s;
             opacity: 0.4;
-            height: 3.125rem;
+            height: 2.5rem;
         }
 
         .wave-medium-3 {
             animation: wave-medium-animation 6s ease-in-out infinite;
             animation-delay: 2s;
             opacity: 0.3;
-            height: 2.5rem;
+            height: 2rem;
         }
 
         .wave-medium-4 {
             animation: wave-medium-animation 4.5s ease-in-out infinite reverse;
             animation-delay: 3s;
             opacity: 0.2;
-            height: 2.1875rem;
+            height: 1.8rem;
+        }
+
+        /* Additional medium waves for mobile */
+        .wave-medium-5 {
+            animation: wave-medium-animation 5.5s ease-in-out infinite;
+            animation-delay: 0.5s;
+            opacity: 0.35;
+            height: 2.3rem;
+        }
+
+        .wave-medium-6 {
+            animation: wave-medium-animation 4.2s ease-in-out infinite reverse;
+            animation-delay: 2.5s;
+            opacity: 0.25;
+            height: 2.1rem;
+        }
+
+        .wave-medium-7 {
+            animation: wave-medium-animation 6.5s ease-in-out infinite;
+            animation-delay: 1.5s;
+            opacity: 0.3;
+            height: 1.9rem;
+        }
+
+        .wave-medium-8 {
+            animation: wave-medium-animation 3.8s ease-in-out infinite reverse;
+            animation-delay: 4s;
+            opacity: 0.2;
+            height: 1.6rem;
         }
 
         .wave-small {
@@ -476,7 +527,7 @@
             bottom: 0;
             left: 0;
             width: 150%;
-            height: 1.5625rem;
+            height: 1.2rem; /* Ajustado para mejor proporción */
             background: linear-gradient(to right, 
                 transparent, 
                 rgba(255, 255, 255, 0.2), 
@@ -494,36 +545,120 @@
             animation: wave-small-animation 2.5s ease-in-out infinite reverse;
             animation-delay: 0.5s;
             opacity: 0.5;
-            height: 1.25rem;
+            height: 1rem;
         }
 
         .wave-small-3 {
             animation: wave-small-animation 3s ease-in-out infinite;
             animation-delay: 1s;
             opacity: 0.4;
-            height: 1.125rem;
+            height: 0.9rem;
         }
 
         .wave-small-4 {
             animation: wave-small-animation 2.2s ease-in-out infinite reverse;
             animation-delay: 1.5s;
             opacity: 0.3;
-            height: 0.9375rem;
+            height: 0.8rem;
         }
 
         .wave-small-5 {
             animation: wave-small-animation 2.8s ease-in-out infinite;
             animation-delay: 2s;
             opacity: 0.2;
+            height: 0.6rem;
+        }
+
+        /* Additional small waves for mobile */
+        .wave-small-6 {
+            animation: wave-small-animation 2.3s ease-in-out infinite reverse;
+            animation-delay: 0.3s;
+            opacity: 0.45;
+            height: 1.1rem;
+        }
+
+        .wave-small-7 {
+            animation: wave-small-animation 2.7s ease-in-out infinite;
+            animation-delay: 0.8s;
+            opacity: 0.35;
+            height: 0.95rem;
+        }
+
+        .wave-small-8 {
+            animation: wave-small-animation 2.1s ease-in-out infinite reverse;
+            animation-delay: 1.3s;
+            opacity: 0.25;
+            height: 0.85rem;
+        }
+
+        .wave-small-9 {
+            animation: wave-small-animation 2.9s ease-in-out infinite;
+            animation-delay: 1.8s;
+            opacity: 0.3;
             height: 0.75rem;
+        }
+
+        .wave-small-10 {
+            animation: wave-small-animation 2.4s ease-in-out infinite reverse;
+            animation-delay: 2.3s;
+            opacity: 0.2;
+            height: 0.65rem;
+        }
+
+        /* Extra tiny waves for mobile detail */
+        .wave-tiny {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120%;
+            height: 0.5rem; /* Ajustado para mejor proporción */
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.25), 
+                transparent
+            );
+            border-radius: 50%;
+        }
+
+        .wave-tiny-1 {
+            animation: wave-tiny-animation 1.5s ease-in-out infinite;
+            opacity: 0.4;
+        }
+
+        .wave-tiny-2 {
+            animation: wave-tiny-animation 1.8s ease-in-out infinite reverse;
+            animation-delay: 0.4s;
+            opacity: 0.35;
+            height: 0.4rem;
+        }
+
+        .wave-tiny-3 {
+            animation: wave-tiny-animation 1.3s ease-in-out infinite;
+            animation-delay: 0.8s;
+            opacity: 0.3;
+            height: 0.35rem;
+        }
+
+        .wave-tiny-4 {
+            animation: wave-tiny-animation 1.6s ease-in-out infinite reverse;
+            animation-delay: 1.2s;
+            opacity: 0.25;
+            height: 0.3rem;
+        }
+
+        .wave-tiny-5 {
+            animation: wave-tiny-animation 1.4s ease-in-out infinite;
+            animation-delay: 1.6s;
+            opacity: 0.2;
+            height: 0.25rem;
         }
 
         .wave-foam {
             position: absolute;
-            bottom: 5rem;
+            bottom: 3rem; /* Ajustado para la nueva altura de orilla */
             left: 0;
             right: 0;
-            height: 0.5rem;
+            height: 0.4rem;
             background: linear-gradient(to right, 
                 transparent, 
                 rgba(255, 255, 255, 0.4), 
@@ -535,10 +670,10 @@
 
         .wave-foam-2 {
             position: absolute;
-            bottom: 4rem;
+            bottom: 2.2rem; /* Ajustado para la nueva altura de orilla */
             left: 0;
             right: 0;
-            height: 0.25rem;
+            height: 0.3rem;
             background: linear-gradient(to right, 
                 transparent, 
                 rgba(255, 255, 255, 0.3), 
@@ -547,6 +682,39 @@
             filter: blur(2px);
             animation: foam-animation 4s ease-in-out infinite reverse;
             animation-delay: 1.5s;
+        }
+
+        /* Additional foam layers for mobile */
+        .wave-foam-3 {
+            position: absolute;
+            bottom: 1.5rem; /* Ajustado para la nueva altura de orilla */
+            left: 0;
+            right: 0;
+            height: 0.35rem;
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.35), 
+                transparent
+            );
+            filter: blur(1.5px);
+            animation: foam-animation 3.5s ease-in-out infinite;
+            animation-delay: 0.8s;
+        }
+
+        .wave-foam-4 {
+            position: absolute;
+            bottom: 0.8rem; /* Ajustado para la nueva altura de orilla */
+            left: 0;
+            right: 0;
+            height: 0.25rem;
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.25), 
+                transparent
+            );
+            filter: blur(1px);
+            animation: foam-animation 4.2s ease-in-out infinite reverse;
+            animation-delay: 2s;
         }
 
         /* Beach */
@@ -593,7 +761,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3rem;
+            height: 2rem; /* Ajustado proporcionalmente */
             background: linear-gradient(to bottom, 
                 rgba(146, 64, 14, 0.6), 
                 transparent
@@ -1467,7 +1635,7 @@
                 transform: translateX(-50%) translateY(0px) scaleY(1);
             }
             50% {
-                transform: translateX(-50%) translateY(-15px) scaleY(1.1);
+                transform: translateX(-50%) translateY(-12px) scaleY(1.08); /* Reducido ligeramente */
             }
         }
 
@@ -1476,7 +1644,7 @@
                 transform: translateX(-50%) translateY(0px);
             }
             50% {
-                transform: translateX(-50%) translateY(-8px);
+                transform: translateX(-50%) translateY(-6px); /* Reducido ligeramente */
             }
         }
 
@@ -1485,7 +1653,16 @@
                 transform: translateX(-50%) translateY(0px);
             }
             50% {
-                transform: translateX(-50%) translateY(-4px);
+                transform: translateX(-50%) translateY(-3px); /* Reducido ligeramente */
+            }
+        }
+
+        @keyframes wave-tiny-animation {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-1.5px); /* Reducido ligeramente */
             }
         }
 
@@ -1505,7 +1682,7 @@
                 transform: translateY(0px);
             }
             50% {
-                transform: translateY(-3px);
+                transform: translateY(-2px); /* Reducido para la nueva altura */
             }
         }
 
@@ -1516,7 +1693,7 @@
             }
             50% {
                 opacity: 0.8;
-                transform: translateY(-2px) scaleX(1.05);
+                transform: translateY(-1.5px) scaleX(1.05); /* Reducido para la nueva altura */
             }
         }
 
@@ -1535,7 +1712,7 @@
             }
         }
 
-        /* Responsive */
+        /* Responsive - Enhanced waves for mobile */
         @media (max-width: 768px) {
             .content h1 {
                 font-size: 3rem;
@@ -1548,6 +1725,29 @@
             .people {
                 gap: 2rem;
             }
+
+            /* Show additional waves on mobile */
+            .wave-large-4,
+            .wave-large-5,
+            .wave-large-6,
+            .wave-medium-5,
+            .wave-medium-6,
+            .wave-medium-7,
+            .wave-medium-8,
+            .wave-small-6,
+            .wave-small-7,
+            .wave-small-8,
+            .wave-small-9,
+            .wave-small-10,
+            .wave-tiny-1,
+            .wave-tiny-2,
+            .wave-tiny-3,
+            .wave-tiny-4,
+            .wave-tiny-5,
+            .wave-foam-3,
+            .wave-foam-4 {
+                display: block;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1558,6 +1758,48 @@
             .people {
                 gap: 1.5rem;
                 transform: translateX(-50%) scale(0.8);
+            }
+
+            /* Enhance wave visibility on small screens */
+            .wave-large {
+                opacity: 0.6;
+            }
+            
+            .wave-medium {
+                opacity: 0.7;
+            }
+            
+            .wave-small {
+                opacity: 0.8;
+            }
+
+            .wave-tiny {
+                opacity: 0.6;
+            }
+        }
+
+        /* Hide additional waves on desktop by default */
+        @media (min-width: 769px) {
+            .wave-large-4,
+            .wave-large-5,
+            .wave-large-6,
+            .wave-medium-5,
+            .wave-medium-6,
+            .wave-medium-7,
+            .wave-medium-8,
+            .wave-small-6,
+            .wave-small-7,
+            .wave-small-8,
+            .wave-small-9,
+            .wave-small-10,
+            .wave-tiny-1,
+            .wave-tiny-2,
+            .wave-tiny-3,
+            .wave-tiny-4,
+            .wave-tiny-5,
+            .wave-foam-3,
+            .wave-foam-4 {
+                display: none;
             }
         }
     </style>
@@ -1620,12 +1862,19 @@
                 <div class="wave-large wave-large-1"></div>
                 <div class="wave-large wave-large-2"></div>
                 <div class="wave-large wave-large-3"></div>
+                <div class="wave-large wave-large-4"></div>
+                <div class="wave-large wave-large-5"></div>
+                <div class="wave-large wave-large-6"></div>
 
                 <!-- Medium waves -->
                 <div class="wave-medium wave-medium-1"></div>
                 <div class="wave-medium wave-medium-2"></div>
                 <div class="wave-medium wave-medium-3"></div>
                 <div class="wave-medium wave-medium-4"></div>
+                <div class="wave-medium wave-medium-5"></div>
+                <div class="wave-medium wave-medium-6"></div>
+                <div class="wave-medium wave-medium-7"></div>
+                <div class="wave-medium wave-medium-8"></div>
 
                 <!-- Small waves -->
                 <div class="wave-small wave-small-1"></div>
@@ -1633,11 +1882,25 @@
                 <div class="wave-small wave-small-3"></div>
                 <div class="wave-small wave-small-4"></div>
                 <div class="wave-small wave-small-5"></div>
+                <div class="wave-small wave-small-6"></div>
+                <div class="wave-small wave-small-7"></div>
+                <div class="wave-small wave-small-8"></div>
+                <div class="wave-small wave-small-9"></div>
+                <div class="wave-small wave-small-10"></div>
+
+                <!-- Tiny waves for mobile detail -->
+                <div class="wave-tiny wave-tiny-1"></div>
+                <div class="wave-tiny wave-tiny-2"></div>
+                <div class="wave-tiny wave-tiny-3"></div>
+                <div class="wave-tiny wave-tiny-4"></div>
+                <div class="wave-tiny wave-tiny-5"></div>
             </div>
 
             <!-- Wave foam -->
             <div class="wave-foam"></div>
             <div class="wave-foam-2"></div>
+            <div class="wave-foam-3"></div>
+            <div class="wave-foam-4"></div>
         </div>
 
         <!-- Beach -->
