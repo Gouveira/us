@@ -45,11 +45,11 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom, 
-                #a855f7, 
-                #f472b6, 
-                #fb923c, 
-                #fde047, 
-                #dbeafe
+                #0a0a2a, /* Muy oscuro */
+                #1a1a4a, 
+                #2a2a6a, 
+                #3a3a8a, 
+                #4a4a9a /* Más claro pero aún oscuro */
             );
         }
 
@@ -57,8 +57,8 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle, 
+                rgba(100, 100, 150, 0.2), /* Resplandor lunar sutil */
                 transparent, 
-                rgba(251, 146, 60, 0.3), 
                 transparent
             );
         }
@@ -76,7 +76,7 @@
             left: 16.666667%;
             width: 12rem;
             height: 6rem;
-            background: rgba(196, 181, 253, 0.2);
+            background: rgba(100, 100, 120, 0.1); /* Nubes más oscuras y sutiles */
             border-radius: 50%;
             filter: blur(16px);
             transform: rotate(12deg);
@@ -88,7 +88,7 @@
             right: 20%;
             width: 14rem;
             height: 7rem;
-            background: rgba(249, 168, 212, 0.15);
+            background: rgba(90, 90, 110, 0.08);
             border-radius: 50%;
             filter: blur(16px);
             transform: rotate(-6deg);
@@ -100,7 +100,7 @@
             left: 66.666667%;
             width: 10rem;
             height: 5rem;
-            background: rgba(253, 186, 116, 0.25);
+            background: rgba(110, 110, 130, 0.12);
             border-radius: 50%;
             filter: blur(16px);
         }
@@ -112,7 +112,7 @@
             left: 25%;
             width: 9rem;
             height: 4.5rem;
-            background: rgba(251, 146, 60, 0.35);
+            background: rgba(80, 80, 100, 0.15);
             border-radius: 50%;
             filter: blur(8px);
             transform: rotate(8deg);
@@ -124,7 +124,7 @@
             right: 33.333333%;
             width: 7rem;
             height: 3.5rem;
-            background: rgba(244, 114, 182, 0.3);
+            background: rgba(70, 70, 90, 0.12);
             border-radius: 50%;
             filter: blur(8px);
             transform: rotate(-12deg);
@@ -136,7 +136,7 @@
             right: 16.666667%;
             width: 11rem;
             height: 5.5rem;
-            background: rgba(253, 186, 116, 0.25);
+            background: rgba(95, 95, 115, 0.1);
             border-radius: 50%;
             filter: blur(8px);
         }
@@ -147,7 +147,7 @@
             left: 50%;
             width: 8rem;
             height: 4rem;
-            background: rgba(253, 224, 71, 0.2);
+            background: rgba(85, 85, 105, 0.09);
             border-radius: 50%;
             filter: blur(8px);
             transform: rotate(15deg);
@@ -160,7 +160,7 @@
             left: 12.5%;
             width: 6rem;
             height: 3rem;
-            background: rgba(249, 115, 22, 0.4);
+            background: rgba(60, 60, 80, 0.18);
             border-radius: 50%;
             filter: blur(4px);
             transform: rotate(-8deg);
@@ -172,62 +172,62 @@
             right: 25%;
             width: 5rem;
             height: 2.5rem;
-            background: rgba(236, 72, 153, 0.35);
+            background: rgba(50, 50, 70, 0.15);
             border-radius: 50%;
             filter: blur(4px);
             transform: rotate(20deg);
         }
 
-        /* Enhanced sun */
-        .sun-container {
+        /* Enhanced moon (formerly sun) */
+        .sun-container { /* Renamed to moon-container conceptually */
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
-        .sun-corona-large {
+        .sun-corona-large { /* Moon glow */
             width: 8rem;
             height: 8rem;
-            background: rgba(254, 240, 138, 0.3);
+            background: rgba(200, 200, 255, 0.1); /* Resplandor azulado/plateado */
             border-radius: 50%;
-            filter: blur(32px);
+            filter: blur(24px); /* Menos intenso que el sol */
             position: absolute;
             top: -2rem;
             left: -2rem;
         }
 
-        .sun-corona-medium {
+        .sun-corona-medium { /* Moon glow inner */
             width: 6rem;
             height: 6rem;
-            background: rgba(253, 224, 71, 0.5);
+            background: rgba(220, 220, 255, 0.2);
             border-radius: 50%;
-            filter: blur(24px);
+            filter: blur(18px);
             position: absolute;
             top: -1rem;
             left: -1rem;
         }
 
-        .sun-main {
+        .sun-main { /* Moon main body */
             width: 8rem;
             height: 8rem;
-            background: radial-gradient(circle, #fefce8, #facc15);
+            background: radial-gradient(circle, #f0f0f0, #c0c0c0); /* Tonos de gris para la luna */
             border-radius: 50%;
-            filter: blur(2px);
+            filter: blur(1px); /* Suave */
             opacity: 0.9;
         }
 
-        .sun-core {
+        .sun-core { /* Moon core/highlight */
             position: absolute;
             inset: 0;
             width: 3rem;
             height: 3rem;
-            background: radial-gradient(circle, white, #fde047);
+            background: radial-gradient(circle, white, #e0e0e0);
             border-radius: 50%;
             margin: 0.5rem;
         }
 
-        /* Sun reflection */
+        /* Moon reflection (formerly sun reflection) */
         .sun-reflection {
             position: absolute;
             top: 50%;
@@ -239,8 +239,8 @@
             width: 0.75rem;
             height: 10rem;
             background: linear-gradient(to bottom, 
-                #fde047, 
-                rgba(253, 224, 71, 0.8), 
+                rgba(200, 200, 255, 0.2), /* Reflejo plateado/azulado */
+                rgba(220, 220, 255, 0.1), 
                 transparent
             );
             opacity: 0.7;
@@ -250,8 +250,8 @@
             width: 0.5rem;
             height: 8rem;
             background: linear-gradient(to bottom, 
-                white, 
-                rgba(254, 240, 138, 0.6), 
+                rgba(255, 255, 255, 0.3), 
+                rgba(230, 230, 255, 0.2), 
                 transparent
             );
             opacity: 0.5;
@@ -267,7 +267,7 @@
             transform: translateX(-50%);
             width: 2rem;
             height: 0.25rem;
-            background: rgba(254, 240, 138, 0.4);
+            background: rgba(200, 200, 255, 0.15);
             border-radius: 50%;
         }
 
@@ -278,7 +278,7 @@
             transform: translateX(-50%);
             width: 1.5rem;
             height: 0.25rem;
-            background: rgba(253, 224, 71, 0.3);
+            background: rgba(220, 220, 255, 0.1);
             border-radius: 50%;
         }
 
@@ -289,7 +289,7 @@
             transform: translateX(-50%);
             width: 1rem;
             height: 0.25rem;
-            background: rgba(254, 240, 138, 0.2);
+            background: rgba(200, 200, 255, 0.08);
             border-radius: 50%;
         }
 
@@ -306,9 +306,9 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom, 
-                rgba(96, 165, 250, 0.3), 
-                rgba(59, 130, 246, 0.5), 
-                rgba(37, 99, 235, 0.7)
+                rgba(0, 0, 50, 0.3), /* Azul muy oscuro */
+                rgba(0, 0, 70, 0.5), 
+                rgba(0, 0, 90, 0.7)
             );
         }
 
@@ -317,7 +317,7 @@
             inset: 0;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(147, 197, 253, 0.2), 
+                rgba(50, 50, 100, 0.2), /* Textura oscura */
                 transparent
             );
         }
@@ -327,7 +327,7 @@
             inset: 0;
             background: linear-gradient(to left, 
                 transparent, 
-                rgba(96, 165, 250, 0.15), 
+                rgba(30, 30, 80, 0.15), 
                 transparent
             );
         }
@@ -347,7 +347,7 @@
             height: 7.5rem;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(255, 255, 255, 0.08), 
+                rgba(255, 255, 255, 0.04), /* Ondas más sutiles */
                 transparent
             );
             border-radius: 50%;
@@ -355,20 +355,20 @@
 
         .wave-large-1 {
             animation: wave-large-animation 8s ease-in-out infinite;
-            opacity: 0.4;
+            opacity: 0.2;
         }
 
         .wave-large-2 {
             animation: wave-large-animation 10s ease-in-out infinite reverse;
             animation-delay: 2s;
-            opacity: 0.3;
+            opacity: 0.15;
             height: 6.25rem;
         }
 
         .wave-large-3 {
             animation: wave-large-animation 12s ease-in-out infinite;
             animation-delay: 4s;
-            opacity: 0.2;
+            opacity: 0.1;
             height: 5rem;
         }
 
@@ -380,7 +380,7 @@
             height: 3.75rem;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(255, 255, 255, 0.12), 
+                rgba(255, 255, 255, 0.06), 
                 transparent
             );
             border-radius: 50%;
@@ -388,27 +388,27 @@
 
         .wave-medium-1 {
             animation: wave-medium-animation 4s ease-in-out infinite;
-            opacity: 0.5;
+            opacity: 0.25;
         }
 
         .wave-medium-2 {
             animation: wave-medium-animation 5s ease-in-out infinite reverse;
             animation-delay: 1s;
-            opacity: 0.4;
+            opacity: 0.2;
             height: 3.125rem;
         }
 
         .wave-medium-3 {
             animation: wave-medium-animation 6s ease-in-out infinite;
             animation-delay: 2s;
-            opacity: 0.3;
+            opacity: 0.15;
             height: 2.5rem;
         }
 
         .wave-medium-4 {
             animation: wave-medium-animation 4.5s ease-in-out infinite reverse;
             animation-delay: 3s;
-            opacity: 0.2;
+            opacity: 0.1;
             height: 2.1875rem;
         }
 
@@ -420,7 +420,7 @@
             height: 1.5625rem;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(255, 255, 255, 0.2), 
+                rgba(255, 255, 255, 0.1), 
                 transparent
             );
             border-radius: 50%;
@@ -428,34 +428,34 @@
 
         .wave-small-1 {
             animation: wave-small-animation 2s ease-in-out infinite;
-            opacity: 0.6;
+            opacity: 0.3;
         }
 
         .wave-small-2 {
             animation: wave-small-animation 2.5s ease-in-out infinite reverse;
             animation-delay: 0.5s;
-            opacity: 0.5;
+            opacity: 0.25;
             height: 1.25rem;
         }
 
         .wave-small-3 {
             animation: wave-small-animation 3s ease-in-out infinite;
             animation-delay: 1s;
-            opacity: 0.4;
+            opacity: 0.2;
             height: 1.125rem;
         }
 
         .wave-small-4 {
             animation: wave-small-animation 2.2s ease-in-out infinite reverse;
             animation-delay: 1.5s;
-            opacity: 0.3;
+            opacity: 0.15;
             height: 0.9375rem;
         }
 
         .wave-small-5 {
             animation: wave-small-animation 2.8s ease-in-out infinite;
             animation-delay: 2s;
-            opacity: 0.2;
+            opacity: 0.1;
             height: 0.75rem;
         }
 
@@ -467,7 +467,7 @@
             height: 0.5rem;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(255, 255, 255, 0.4), 
+                rgba(255, 255, 255, 0.2), /* Espuma más sutil */
                 transparent
             );
             filter: blur(2px);
@@ -482,7 +482,7 @@
             height: 0.25rem;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(255, 255, 255, 0.3), 
+                rgba(255, 255, 255, 0.15), 
                 transparent
             );
             filter: blur(2px);
@@ -503,9 +503,9 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to top, 
-                rgba(180, 83, 9, 0.9), 
-                rgba(202, 138, 4, 0.8), 
-                rgba(234, 179, 8, 0.7)
+                rgba(30, 20, 10, 0.9), /* Tonos de arena más oscuros */
+                rgba(50, 40, 20, 0.8), 
+                rgba(70, 60, 40, 0.7)
             );
         }
 
@@ -513,9 +513,9 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to right, 
-                rgba(202, 138, 4, 0.6), 
+                rgba(50, 40, 20, 0.6), 
                 transparent, 
-                rgba(202, 138, 4, 0.6)
+                rgba(50, 40, 20, 0.6)
             );
         }
 
@@ -523,9 +523,9 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to left, 
-                rgba(180, 83, 9, 0.4), 
+                rgba(30, 20, 10, 0.4), 
                 transparent, 
-                rgba(180, 83, 9, 0.4)
+                rgba(30, 20, 10, 0.4)
             );
         }
 
@@ -536,7 +536,7 @@
             right: 0;
             height: 3rem; /* Ajustado proporcionalmente */
             background: linear-gradient(to bottom, 
-                rgba(146, 64, 14, 0.6), 
+                rgba(10, 5, 0, 0.6), /* Arena mojada muy oscura */
                 transparent
             );
             clip-path: polygon(
@@ -566,7 +566,7 @@
             left: 25%;
             width: 8rem;
             height: 0.25rem;
-            background: rgba(146, 64, 14, 0.3);
+            background: rgba(10, 5, 0, 0.3);
             border-radius: 50%;
             filter: blur(2px);
         }
@@ -577,7 +577,7 @@
             right: 33.333333%;
             width: 6rem;
             height: 0.25rem;
-            background: rgba(180, 83, 9, 0.25);
+            background: rgba(30, 20, 10, 0.25);
             border-radius: 50%;
             filter: blur(2px);
         }
@@ -588,7 +588,7 @@
             left: 50%;
             width: 7rem;
             height: 0.25rem;
-            background: rgba(146, 64, 14, 0.2);
+            background: rgba(10, 5, 0, 0.2);
             border-radius: 50%;
             filter: blur(2px);
         }
@@ -607,7 +607,7 @@
             left: 0;
             width: 25%;
             height: 3rem;
-            background: rgba(147, 51, 234, 0.2);
+            background: rgba(50, 30, 80, 0.2); /* Montañas más oscuras */
             filter: blur(8px);
             transform: skewX(12deg);
         }
@@ -618,7 +618,7 @@
             left: 25%;
             width: 33.333333%;
             height: 2rem;
-            background: rgba(168, 85, 247, 0.15);
+            background: rgba(70, 50, 100, 0.15);
             filter: blur(8px);
             transform: skewX(-6deg);
         }
@@ -629,7 +629,7 @@
             right: 25%;
             width: 33.333333%;
             height: 2.5rem;
-            background: rgba(147, 51, 234, 0.18);
+            background: rgba(60, 40, 90, 0.18);
             filter: blur(8px);
             transform: skewX(8deg);
         }
@@ -811,7 +811,7 @@
             background: linear-gradient(to bottom, 
                 transparent, 
                 transparent, 
-                rgba(251, 146, 60, 0.1)
+                rgba(50, 50, 100, 0.1) /* Efecto atmosférico oscuro */
             );
         }
 
@@ -819,7 +819,7 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle, 
-                rgba(254, 240, 138, 0.1), 
+                rgba(150, 150, 200, 0.05), /* Resplandor lunar atmosférico */
                 transparent, 
                 transparent
             );
@@ -1275,7 +1275,7 @@
             <div class="cloud-fg-2"></div>
         </div>
 
-        <!-- Sun -->
+        <!-- Moon (formerly Sun) -->
         <div class="sun-container">
             <div class="sun-corona-large"></div>
             <div class="sun-corona-medium"></div>
@@ -1284,7 +1284,7 @@
             </div>
         </div>
 
-        <!-- Sun reflection -->
+        <!-- Moon reflection (formerly Sun reflection) -->
         <div class="sun-reflection">
             <div class="reflection-main"></div>
             <div class="reflection-core"></div>
