@@ -495,7 +495,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 9rem;
+            height: 10rem; /* tamaño de la playa */
         }
 
         .sand-base {
@@ -533,10 +533,28 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 2rem;
+            height: 3rem; /* Ajustado proporcionalmente */
             background: linear-gradient(to bottom, 
                 rgba(146, 64, 14, 0.6), 
                 transparent
+            );
+            clip-path: polygon(
+                0% 40%, 
+                7% 60%, 
+                15% 30%, 
+                23% 55%, 
+                32% 25%, 
+                40% 50%, 
+                48% 35%, 
+                56% 65%, 
+                64% 40%, 
+                72% 70%, 
+                80% 30%, 
+                88% 55%, 
+                96% 35%, 
+                100% 60%, 
+                100% 100%, 
+                0% 100%
             );
         }
 
