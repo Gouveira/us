@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un sueño de un loco niño</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .h1 {
+            color: transparent;
+            font-size: 1000px;    
+            user-select: none;  /* Evita que se seleccione */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .fondo-difuminado {
+            background-size: cover;
+            height: 100vh;
+            backdrop-filter: blur(4.5px);
+            -webkit-backdrop-filter: blur(4.5px); /* para compatibilidad con Safari */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        /* Complex sky with multiple gradient layers */
+        .sky-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, 
+                #a855f7, 
+                #f472b6, 
+                #fb923c, 
+                #fde047, 
+                #dbeafe
+            );
+        }
+
+        .sky-radial {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, 
+                transparent, 
+                rgba(251, 146, 60, 0.3), 
+                transparent
+            );
+        }
+
+        /* Cloud layers */
+        .clouds {
+            position: absolute;
+            inset: 0;
+        }
+
+        /* Background clouds */
+        .cloud-bg-1 {
+            position: absolute;
+            top: 4rem;
+            left: 16.666667%;
+            width: 12rem;
+            height: 6rem;
+            background: rgba(196, 181, 253, 0.2);
+            border-radius: 50%;
+            filter: blur(16px);
+            transform: rotate(12deg);
+        }
+
+        .cloud-bg-2 {
+            position: absolute;
+            top: 6rem;
+            right: 20%;
+            width: 14rem;
+            height: 7rem;
+            background: rgba(249, 168, 212, 0.15);
+            border-radius: 50%;
+            filter: blur(16px);
+            transform: rotate(-6deg);
+        }
+
+        .cloud-bg-3 {
+            position: absolute;
+            top: 3rem;
+            left: 66.666667%;
+            width: 10rem;
+            height: 5rem;
+            background: rgba(253, 186, 116, 0.25);
+            border-radius: 50%;
+            filter: blur(16px);
+        }
+
+        /* Mid-layer clouds */
+        .cloud-mid-1 {
+            position: absolute;
+            top: 8rem;
+            left: 25%;
+            width: 9rem;
+            height: 4.5rem;
+            background: rgba(251, 146, 60, 0.35);
+            border-radius: 50%;
+            filter: blur(8px);
+            transform: rotate(8deg);
+        }
+
+        .cloud-mid-2 {
+            position: absolute;
+            top: 5rem;
+            right: 33.333333%;
+            width: 7rem;
+            height: 3.5rem;
+            background: rgba(244, 114, 182, 0.3);
+            border-radius: 50%;
+            filter: blur(8px);
+            transform: rotate(-12deg);
+        }
+
+        .cloud-mid-3 {
+            position: absolute;
+            top: 10rem;
+            right: 16.666667%;
+            width: 11rem;
+            height: 5.5rem;
+            background: rgba(253, 186, 116, 0.25);
+            border-radius: 50%;
+            filter: blur(8px);
+        }
+
+        .cloud-mid-4 {
+            position: absolute;
+            top: 7rem;
+            left: 50%;
+            width: 8rem;
+            height: 4rem;
+            background: rgba(253, 224, 71, 0.2);
+            border-radius: 50%;
+            filter: blur(8px);
+            transform: rotate(15deg);
+        }
+
+        /* Foreground clouds */
+        .cloud-fg-1 {
+            position: absolute;
+            top: 9rem;
+            left: 12.5%;
+            width: 6rem;
+            height: 3rem;
+            background: rgba(249, 115, 22, 0.4);
+            border-radius: 50%;
+            filter: blur(4px);
+            transform: rotate(-8deg);
+        }
+
+        .cloud-fg-2 {
+            position: absolute;
+            top: 11rem;
+            right: 25%;
+            width: 5rem;
+            height: 2.5rem;
+            background: rgba(236, 72, 153, 0.35);
+            border-radius: 50%;
+            filter: blur(4px);
+            transform: rotate(20deg);
+        }
+
+        /* Enhanced sun */
+        .sun-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .sun-corona-large {
+            width: 8rem;
+            height: 8rem;
+            background: rgba(254, 240, 138, 0.3);
+            border-radius: 50%;
+            filter: blur(32px);
+            position: absolute;
+            top: -2rem;
+            left: -2rem;
+        }
+
+        .sun-corona-medium {
+            width: 6rem;
+            height: 6rem;
+            background: rgba(253, 224, 71, 0.5);
+            border-radius: 50%;
+            filter: blur(24px);
+            position: absolute;
+            top: -1rem;
+            left: -1rem;
+        }
+
+        .sun-main {
+            width: 8rem;
+            height: 8rem;
+            background: radial-gradient(circle, #fefce8, #facc15);
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.9;
+        }
+
+        .sun-core {
+            position: absolute;
+            inset: 0;
+            width: 3rem;
+            height: 3rem;
+            background: radial-gradient(circle, white, #fde047);
+            border-radius: 50%;
+            margin: 0.5rem;
+        }
+
+        /* Sun reflection */
+        .sun-reflection {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 2rem);
+        }
+
+        .reflection-main {
+            width: 0.75rem;
+            height: 10rem;
+            background: linear-gradient(to bottom, 
+                #fde047, 
+                rgba(253, 224, 71, 0.8), 
+                transparent
+            );
+            opacity: 0.7;
+        }
+
+        .reflection-core {
+            width: 0.5rem;
+            height: 8rem;
+            background: linear-gradient(to bottom, 
+                white, 
+                rgba(254, 240, 138, 0.6), 
+                transparent
+            );
+            opacity: 0.5;
+            position: absolute;
+            left: 0.125rem;
+            top: 1rem;
+        }
+
+        .reflection-ripple-1 {
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2rem;
+            height: 0.25rem;
+            background: rgba(254, 240, 138, 0.4);
+            border-radius: 50%;
+        }
+
+        .reflection-ripple-2 {
+            position: absolute;
+            top: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1.5rem;
+            height: 0.25rem;
+            background: rgba(253, 224, 71, 0.3);
+            border-radius: 50%;
+        }
+
+        .reflection-ripple-3 {
+            position: absolute;
+            top: 6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1rem;
+            height: 0.25rem;
+            background: rgba(254, 240, 138, 0.2);
+            border-radius: 50%;
+        }
+
+        /* Ocean */
+        .ocean {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+        }
+
+        .ocean-background {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, 
+                rgba(96, 165, 250, 0.3), 
+                rgba(59, 130, 246, 0.5), 
+                rgba(37, 99, 235, 0.7)
+            );
+        }
+
+        .ocean-texture-1 {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(147, 197, 253, 0.2), 
+                transparent
+            );
+        }
+
+        .ocean-texture-2 {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to left, 
+                transparent, 
+                rgba(96, 165, 250, 0.15), 
+                transparent
+            );
+        }
+
+        .waves {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        /* Irregular shoreline */
+        .shoreline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3rem;
+            background: rgba(59, 130, 246, 0.4);
+            clip-path: polygon(
+                0% 60%, 
+                5% 80%, 
+                12% 45%, 
+                18% 70%, 
+                25% 40%, 
+                32% 65%, 
+                38% 35%, 
+                45% 75%, 
+                52% 50%, 
+                58% 85%, 
+                65% 30%, 
+                72% 60%, 
+                78% 45%, 
+                85% 70%, 
+                92% 40%, 
+                100% 65%, 
+                100% 100%, 
+                0% 100%
+            );
+            animation: shoreline-animation 4s ease-in-out infinite;
+        }
+
+        .shoreline-foam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2rem;
+            background: rgba(255, 255, 255, 0.6);
+            clip-path: polygon(
+                0% 70%, 
+                8% 85%, 
+                15% 50%, 
+                22% 75%, 
+                30% 45%, 
+                38% 70%, 
+                45% 40%, 
+                52% 80%, 
+                60% 55%, 
+                68% 90%, 
+                75% 35%, 
+                82% 65%, 
+                90% 50%, 
+                100% 75%, 
+                100% 100%, 
+                0% 100%
+            );
+            filter: blur(1px);
+            animation: shoreline-foam-animation 3s ease-in-out infinite;
+        }
+
+        /* Wave animations */
+        .wave-large {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 300%;
+            height: 7.5rem;
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.08), 
+                transparent
+            );
+            border-radius: 50%;
+        }
+
+        .wave-large-1 {
+            animation: wave-large-animation 8s ease-in-out infinite;
+            opacity: 0.4;
+        }
+
+        .wave-large-2 {
+            animation: wave-large-animation 10s ease-in-out infinite reverse;
+            animation-delay: 2s;
+            opacity: 0.3;
+            height: 6.25rem;
+        }
+
+        .wave-large-3 {
+            animation: wave-large-animation 12s ease-in-out infinite;
+            animation-delay: 4s;
+            opacity: 0.2;
+            height: 5rem;
+        }
+
+        .wave-medium {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 3.75rem;
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.12), 
+                transparent
+            );
+            border-radius: 50%;
+        }
+
+        .wave-medium-1 {
+            animation: wave-medium-animation 4s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        .wave-medium-2 {
+            animation: wave-medium-animation 5s ease-in-out infinite reverse;
+            animation-delay: 1s;
+            opacity: 0.4;
+            height: 3.125rem;
+        }
+
+        .wave-medium-3 {
+            animation: wave-medium-animation 6s ease-in-out infinite;
+            animation-delay: 2s;
+            opacity: 0.3;
+            height: 2.5rem;
+        }
+
+        .wave-medium-4 {
+            animation: wave-medium-animation 4.5s ease-in-out infinite reverse;
+            animation-delay: 3s;
+            opacity: 0.2;
+            height: 2.1875rem;
+        }
+
+        .wave-small {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 150%;
+            height: 1.5625rem;
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent
+            );
+            border-radius: 50%;
+        }
+
+        .wave-small-1 {
+            animation: wave-small-animation 2s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .wave-small-2 {
+            animation: wave-small-animation 2.5s ease-in-out infinite reverse;
+            animation-delay: 0.5s;
+            opacity: 0.5;
+            height: 1.25rem;
+        }
+
+        .wave-small-3 {
+            animation: wave-small-animation 3s ease-in-out infinite;
+            animation-delay: 1s;
+            opacity: 0.4;
+            height: 1.125rem;
+        }
+
+        .wave-small-4 {
+            animation: wave-small-animation 2.2s ease-in-out infinite reverse;
+            animation-delay: 1.5s;
+            opacity: 0.3;
+            height: 0.9375rem;
+        }
+
+        .wave-small-5 {
+            animation: wave-small-animation 2.8s ease-in-out infinite;
+            animation-delay: 2s;
+            opacity: 0.2;
+            height: 0.75rem;
+        }
+
+        .wave-foam {
+            position: absolute;
+            bottom: 5rem;
+            left: 0;
+            right: 0;
+            height: 0.5rem;
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent
+            );
+            filter: blur(2px);
+            animation: foam-animation 3s ease-in-out infinite;
+        }
+
+        .wave-foam-2 {
+            position: absolute;
+            bottom: 4rem;
+            left: 0;
+            right: 0;
+            height: 0.25rem;
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent
+            );
+            filter: blur(2px);
+            animation: foam-animation 4s ease-in-out infinite reverse;
+            animation-delay: 1.5s;
+        }
+
+        /* Beach */
+        .beach {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12rem;
+        }
+
+        .sand-base {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, 
+                rgba(180, 83, 9, 0.9), 
+                rgba(202, 138, 4, 0.8), 
+                rgba(234, 179, 8, 0.7)
+            );
+        }
+
+        .sand-texture-1 {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, 
+                rgba(202, 138, 4, 0.6), 
+                transparent, 
+                rgba(202, 138, 4, 0.6)
+            );
+        }
+
+        .sand-texture-2 {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to left, 
+                rgba(180, 83, 9, 0.4), 
+                transparent, 
+                rgba(180, 83, 9, 0.4)
+            );
+        }
+
+        .wet-sand {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3rem;
+            background: linear-gradient(to bottom, 
+                rgba(146, 64, 14, 0.6), 
+                transparent
+            );
+            clip-path: polygon(
+                0% 40%, 
+                7% 60%, 
+                15% 30%, 
+                23% 55%, 
+                32% 25%, 
+                40% 50%, 
+                48% 35%, 
+                56% 65%, 
+                64% 40%, 
+                72% 70%, 
+                80% 30%, 
+                88% 55%, 
+                96% 35%, 
+                100% 60%, 
+                100% 100%, 
+                0% 100%
+            );
+        }
+
+        /* Sand elements */
+        .sand-ripple-1 {
+            position: absolute;
+            bottom: 3rem;
+            left: 25%;
+            width: 8rem;
+            height: 0.25rem;
+            background: rgba(146, 64, 14, 0.3);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .sand-ripple-2 {
+            position: absolute;
+            bottom: 4rem;
+            right: 33.333333%;
+            width: 6rem;
+            height: 0.25rem;
+            background: rgba(180, 83, 9, 0.25);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .sand-ripple-3 {
+            position: absolute;
+            bottom: 5rem;
+            left: 50%;
+            width: 7rem;
+            height: 0.25rem;
+            background: rgba(146, 64, 14, 0.2);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        /* Sand mounds */
+        .sand-mound-1 {
+            position: absolute;
+            bottom: 6rem;
+            left: 16.666667%;
+            width: 4rem;
+            height: 1.5rem;
+            background: rgba(180, 83, 9, 0.8);
+            border-radius: 50%;
+            transform: rotate(12deg);
+        }
+
+        .sand-mound-2 {
+            position: absolute;
+            bottom: 5.5rem;
+            left: 20%;
+            width: 3rem;
+            height: 1rem;
+            background: rgba(202, 138, 4, 0.7);
+            border-radius: 50%;
+            transform: rotate(-6deg);
+        }
+
+        .sand-mound-3 {
+            position: absolute;
+            bottom: 6.5rem;
+            right: 25%;
+            width: 5rem;
+            height: 2rem;
+            background: rgba(180, 83, 9, 0.75);
+            border-radius: 50%;
+            transform: rotate(8deg);
+        }
+
+        .sand-mound-4 {
+            position: absolute;
+            bottom: 5rem;
+            right: 33.333333%;
+            width: 3.5rem;
+            height: 1.25rem;
+            background: rgba(202, 138, 4, 0.65);
+            border-radius: 50%;
+            transform: rotate(-10deg);
+        }
+
+        .sand-mound-5 {
+            position: absolute;
+            bottom: 7rem;
+            left: 60%;
+            width: 4.5rem;
+            height: 1.75rem;
+            background: rgba(180, 83, 9, 0.7);
+            border-radius: 50%;
+            transform: rotate(15deg);
+        }
+
+        /* Rocks */
+        .rock-1 {
+            position: absolute;
+            bottom: 6rem;
+            left: 12.5%;
+            width: 1rem;
+            height: 0.75rem;
+            background: #374151;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        .rock-2 {
+            position: absolute;
+            bottom: 5.5rem;
+            left: 14.285714%;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: #4b5563;
+            border-radius: 50%;
+        }
+
+        .rock-3 {
+            position: absolute;
+            bottom: 6.5rem;
+            right: 20%;
+            width: 1.5rem;
+            height: 1rem;
+            background: #1f2937;
+            border-radius: 8px;
+            transform: rotate(-30deg);
+        }
+
+        .rock-4 {
+            position: absolute;
+            bottom: 5.75rem;
+            right: 16.666667%;
+            width: 0.75rem;
+            height: 0.5rem;
+            background: #4b5563;
+            border-radius: 50%;
+            transform: rotate(60deg);
+        }
+
+        .rock-5 {
+            position: absolute;
+            bottom: 7.25rem;
+            left: 66.666667%;
+            width: 1.25rem;
+            height: 1rem;
+            background: #374151;
+            border-radius: 50%;
+            transform: rotate(-20deg);
+        }
+
+        .rock-6 {
+            position: absolute;
+            bottom: 5.25rem;
+            left: 75%;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: #6b7280;
+            border-radius: 50%;
+        }
+
+        .rock-7 {
+            position: absolute;
+            bottom: 6.25rem;
+            right: 40%;
+            width: 0.75rem;
+            height: 0.75rem;
+            background: #1f2937;
+            border-radius: 50%;
+            transform: rotate(90deg);
+        }
+
+        /* Seashells */
+        .shell-1 {
+            position: absolute;
+            bottom: 6rem;
+            left: 40%;
+            width: 0.5rem;
+            height: 0.375rem;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        .shell-2 {
+            position: absolute;
+            bottom: 7rem;
+            right: 66.666667%;
+            width: 0.375rem;
+            height: 0.25rem;
+            background: #fce7f3;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .shell-3 {
+            position: absolute;
+            bottom: 5.5rem;
+            left: 80%;
+            width: 0.25rem;
+            height: 0.25rem;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        /* Seaweed */
+        .seaweed-1 {
+            position: absolute;
+            bottom: 5.75rem;
+            left: 33.333333%;
+            width: 2rem;
+            height: 0.25rem;
+            background: rgba(22, 101, 52, 0.6);
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        .seaweed-2 {
+            position: absolute;
+            bottom: 5.25rem;
+            left: 33.333333%;
+            width: 1.5rem;
+            height: 0.125rem;
+            background: rgba(21, 128, 61, 0.5);
+            border-radius: 50%;
+            transform: rotate(30deg);
+        }
+
+        .seaweed-3 {
+            position: absolute;
+            bottom: 6.75rem;
+            right: 50%;
+            width: 2.5rem;
+            height: 0.25rem;
+            background: rgba(120, 53, 15, 0.4);
+            border-radius: 50%;
+            transform: rotate(-60deg);
+        }
+
+        /* Sand castles */
+        .sand-castle-1 {
+            position: absolute;
+            bottom: 7.5rem;
+            left: 25%;
+            width: 1.5rem;
+            height: 2rem;
+            background: rgba(146, 64, 14, 0.7);
+            border-radius: 50% 50% 0 0;
+        }
+
+        .sand-castle-1-tower {
+            position: absolute;
+            bottom: 7rem;
+            left: 25.25%;
+            width: 1rem;
+            height: 1.5rem;
+            background: rgba(180, 83, 9, 0.8);
+            border-radius: 50% 50% 0 0;
+        }
+
+        .sand-castle-2 {
+            position: absolute;
+            bottom: 8rem;
+            right: 33.333333%;
+            width: 2rem;
+            height: 2.5rem;
+            background: rgba(146, 64, 14, 0.75);
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Mountains */
+        .mountains {
+            position: absolute;
+            bottom: 50%;
+            left: 0;
+            right: 0;
+            height: 4rem;
+        }
+
+        .mountain-1 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 25%;
+            height: 3rem;
+            background: rgba(147, 51, 234, 0.2);
+            filter: blur(8px);
+            transform: skewX(12deg);
+        }
+
+        .mountain-2 {
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 33.333333%;
+            height: 2rem;
+            background: rgba(168, 85, 247, 0.15);
+            filter: blur(8px);
+            transform: skewX(-6deg);
+        }
+
+        .mountain-3 {
+            position: absolute;
+            bottom: 0;
+            right: 25%;
+            width: 33.333333%;
+            height: 2.5rem;
+            background: rgba(147, 51, 234, 0.18);
+            filter: blur(8px);
+            transform: skewX(8deg);
+        }
+
+        /* Seagulls */
+        .seagulls {
+            position: absolute;
+            inset: 0;
+        }
+
+        .seagull {
+            position: relative;
+            animation: fly 6s ease-in-out infinite;
+        }
+
+        .seagull-large {
+            position: absolute;
+            top: 25%;
+            left: 20%;
+            width: 1.5rem;
+            height: 0.1875rem;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .seagull-large::before {
+            content: '';
+            position: absolute;
+            left: -0.75rem;
+            top: 0;
+            width: 1.125rem;
+            height: 0.1875rem;
+            background: rgba(0, 0, 0, 0.7);
+            transform: rotate(-25deg);
+        }
+
+        .seagull-large::after {
+            content: '';
+            position: absolute;
+            right: -0.75rem;
+            top: 0;
+            width: 1.125rem;
+            height: 0.1875rem;
+            background: rgba(0, 0, 0, 0.7);
+            transform: rotate(25deg);
+        }
+
+        .seagull-medium-1 {
+            position: absolute;
+            top: 33.333333%;
+            right: 25%;
+            width: 1.125rem;
+            height: 0.125rem;
+            background: rgba(0, 0, 0, 0.5);
+            animation-delay: 1s;
+        }
+
+        .seagull-medium-1::before {
+            content: '';
+            position: absolute;
+            left: -0.5625rem;
+            top: 0;
+            width: 0.8125rem;
+            height: 0.125rem;
+            background: rgba(0, 0, 0, 0.5);
+            transform: rotate(-20deg);
+        }
+
+        .seagull-medium-1::after {
+            content: '';
+            position: absolute;
+            right: -0.5625rem;
+            top: 0;
+            width: 0.8125rem;
+            height: 0.125rem;
+            background: rgba(0, 0, 0, 0.5);
+            transform: rotate(20deg);
+        }
+
+        .seagull-small-1 {
+            position: absolute;
+            top: 20%;
+            left: 66.666667%;
+            width: 0.75rem;
+            height: 0.0625rem;
+            background: rgba(0, 0, 0, 0.3);
+            animation-delay: 2s;
+        }
+
+        .seagull-small-1::before {
+            content: '';
+            position: absolute;
+            left: -0.375rem;
+            top: 0;
+            width: 0.5rem;
+            height: 0.0625rem;
+            background: rgba(0, 0, 0, 0.3);
+            transform: rotate(-15deg);
+        }
+
+        .seagull-small-1::after {
+            content: '';
+            position: absolute;
+            right: -0.375rem;
+            top: 0;
+            width: 0.5rem;
+            height: 0.0625rem;
+            background: rgba(0, 0, 0, 0.3);
+            transform: rotate(15deg);
+        }
+
+        .seagull-medium-2 {
+            position: absolute;
+            top: 40%;
+            right: 16.666667%;
+            width: 1.125rem;
+            height: 0.125rem;
+            background: rgba(0, 0, 0, 0.5);
+            animation-delay: 3s;
+        }
+
+        .seagull-medium-2::before {
+            content: '';
+            position: absolute;
+            left: -0.5625rem;
+            top: 0;
+            width: 0.8125rem;
+            height: 0.125rem;
+            background: rgba(0, 0, 0, 0.5);
+            transform: rotate(-20deg);
+        }
+
+        .seagull-medium-2::after {
+            content: '';
+            position: absolute;
+            right: -0.5625rem;
+            top: 0;
+            width: 0.8125rem;
+            height: 0.125rem;
+            background: rgba(0, 0, 0, 0.5);
+            transform: rotate(20deg);
+        }
+
+        .seagull-small-2 {
+            position: absolute;
+            top: 16.666667%;
+            left: 50%;
+            width: 0.75rem;
+            height: 0.0625rem;
+            background: rgba(0, 0, 0, 0.3);
+            animation-delay: 4s;
+        }
+
+        .seagull-small-2::before {
+            content: '';
+            position: absolute;
+            left: -0.375rem;
+            top: 0;
+            width: 0.5rem;
+            height: 0.0625rem;
+            background: rgba(0, 0, 0, 0.3);
+            transform: rotate(-15deg);
+        }
+
+        .seagull-small-2::after {
+            content: '';
+            position: absolute;
+            right: -0.375rem;
+            top: 0;
+            width: 0.5rem;
+            height: 0.0625rem;
+            background: rgba(0, 0, 0, 0.3);
+            transform: rotate(15deg);
+        }
+
+        /* Atmospheric effects */
+        .atmosphere-1 {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                transparent, 
+                rgba(251, 146, 60, 0.1)
+            );
+        }
+
+        .atmosphere-2 {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, 
+                rgba(254, 240, 138, 0.1), 
+                transparent, 
+                transparent
+            );
+        }
+
+        /* People silhouettes - MOVED LOWER */
+        .people {
+            position: absolute;
+            bottom: 4rem; /* Cambiado de 9rem a 4rem */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: flex-end;
+            gap: 3rem;
+        }
+        
+        .person-fix {
+            position: relative;
+            width: 1.5rem;
+            height: 0.1rem;
+            background: black;
+            margin-bottom: -0.125rem;
+            left: 0.4rem;
+            top: 0rem;
+        }
+        /* Person 1 - Female */
+        .person-1 {
+            position: relative;
+        }
+
+        .person-1-head {
+            width: 1.75rem;
+            height: 1.75rem;
+            background: black;
+            border-radius: 50%;
+            margin-bottom: -0.125rem;
+            right: -0.3rem;
+            position: relative;
+        }
+
+        .person-1-hair-1 {
+            position: absolute;
+            top: 0rem;
+            right: -0.25rem;
+            width: 1.25rem;
+            height: 2rem;
+            background: black;
+            border-radius: 50%;
+            opacity:0.9;
+            transform: rotate(-20deg);
+        }
+
+
+        .person-1-hair-2 {
+            position: absolute;
+            top: 0rem;
+            left: -0.25rem;
+            width: 1.25rem;
+            height: 2rem;
+            background: black;
+            border-radius: 50%;
+            opacity: 0.9;
+            transform: rotate(20deg);
+        }
+
+        .person-1-neck {
+            position: relative;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: black;
+            margin: 0 auto;
+            left: -0.05rem;
+        }
+
+        .person-1-torso {
+            width: 2.5rem;
+            height: 3rem;
+            background: black;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            left: -0.155rem;
+        }
+
+        .person-1-arm-left-1 {
+            position: absolute;
+            left: -0.5rem;
+            top: 0.1rem;
+            width: 0.625rem;
+            height: 2.5rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(10deg);
+        }
+
+        .person-1-arm-left-2 {
+            position: absolute;
+            left: -0.5rem;
+            top: 2rem;
+            width: 0.5rem;
+            height: 1rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(-75deg);
+        }
+
+        .person-1-arm-right-1 {
+            position: absolute;
+            right: -0.5rem;
+            top: 0.1rem;
+            width: 0.625rem;
+            height: 2.5rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(-10deg);
+        }
+
+        .person-1-arm-right-2 {
+            position: absolute;
+            right: -0.5rem;
+            top: 2rem;
+            width: 0.5rem;
+            height: 1rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(75deg);
+        }
+
+        .person-1-legs {
+            display: flex;
+            gap: 0.125rem;
+            position: relative;
+        }
+
+        .person-1-leg-left {
+            width: 1rem;
+            height: 2rem;
+            background: black;
+            border-radius: 0 0 8px 8px;
+            transform: rotate(12deg);
+        }
+
+        .person-1-leg-left-lower {
+            position: absolute;
+            left: -0.2rem;
+            top: 1.5rem;
+            width: 0.75rem;
+            height: 1.5rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(70deg);
+        }
+
+        .person-1-leg-right {
+            width: 1rem;
+            height: 2rem;
+            background: black;
+            border-radius: 0 0 8px 8px;
+            transform: rotate(-8deg);
+        }
+
+        .person-1-leg-right-lower {
+            position: absolute;
+            right: -0.01rem;
+            top: 1.5rem;
+            width: 0.75rem;
+            height: 1.5rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(-70deg);
+        }
+
+        /* Person 2 - Male */
+        .person-2 {
+            position: relative;
+        }
+
+        .person-2-head {
+            width: 2rem;
+            height: 2rem;
+            background: black;
+            border-radius: 50%;
+            margin-bottom: -0.125rem;
+            right: -0.35rem;
+            position: relative;
+        }
+
+        .person-2-hair {
+            position: absolute;
+            top: -0.125rem;
+            left: 0;
+            right: 0;
+            width: 2rem;
+            height: 0.75rem;
+            background: black;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .person-2-neck {
+            position: relative;
+            width: 0.625rem;
+            height: 0.5rem;
+            background: black;
+            margin: 0 auto;
+            left: -0.1rem;
+        }
+
+        .person-2-torso {
+            width: 3rem;
+            height: 3.5rem;
+            background: black;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            left: -0.1rem;
+        }
+
+        .person-2-arm-left-1 {
+            position: absolute;
+            left: -0.5rem;
+            top: 0.1rem;
+            width: 0.75rem;
+            height: 2.75rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(10deg);
+        }
+
+        .person-2-arm-left-2 {
+            position: absolute;
+            left: -0.625rem;
+            top: 2.5rem;
+            width: 0.625rem;
+            height: 1.25rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(-60deg);
+        }
+
+        .person-2-arm-right-1 {
+            position: absolute;
+            right: -0.5rem;
+            top: 0.1rem;
+            width: 0.75rem;
+            height: 2.75rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(-10deg);
+        }
+
+        .person-2-arm-right-2 {
+            position: absolute;
+            right: -0.5rem;
+            top: 2.5rem;
+            width: 0.625rem;
+            height: 1.25rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(60deg);
+        }
+
+        .person-2-legs {
+            display: flex;
+            gap: 0.125rem;
+            position: relative;
+        }
+
+        .person-2-leg-left {
+            width: 1.25rem;
+            height: 2.5rem;
+            background: black;
+            border-radius: 0 0 8px 8px;
+            transform: rotate(8deg);
+        }
+
+        .person-2-leg-left-lower {
+            position: absolute;
+            left: -0.2rem;
+            top: 2rem;
+            width: 1rem;
+            height: 1.75rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(70deg);
+        }
+
+        .person-2-leg-right {
+            width: 1.25rem;
+            height: 2.5rem;
+            background: black;
+            border-radius: 0 0 8px 8px;
+            transform: rotate(-8deg);
+        }
+
+        .person-2-leg-right-lower {
+            position: absolute;
+            right: -0.2rem;
+            top: 2rem;
+            width: 1rem;
+            height: 1.75rem;
+            background: black;
+            border-radius: 50%;
+            transform: rotate(-70deg);
+        }
+
+        /* Content overlay */
+        .content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .content h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            color: white;
+            filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.5));
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.25));
+            max-width: 42rem;
+            margin-bottom: 2rem;
+        }
+
+        .content button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .content button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes wave-large-animation {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0px) scaleY(1);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-15px) scaleY(1.1);
+            }
+        }
+
+        @keyframes wave-medium-animation {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-8px);
+            }
+        }
+
+        @keyframes wave-small-animation {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-4px);
+            }
+        }
+
+        @keyframes foam-animation {
+            0%, 100% {
+                opacity: 0.4;
+                transform: scaleX(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scaleX(1.1);
+            }
+        }
+
+        @keyframes shoreline-animation {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+
+        @keyframes shoreline-foam-animation {
+            0%, 100% {
+                opacity: 0.6;
+                transform: translateY(0px) scaleX(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-2px) scaleX(1.05);
+            }
+        }
+
+        @keyframes fly {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            25% {
+                transform: translateY(-8px) translateX(15px);
+            }
+            50% {
+                transform: translateY(-3px) translateX(30px);
+            }
+            75% {
+                transform: translateY(-6px) translateX(45px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 3rem;
+            }
+            
+            .content p {
+                font-size: 1rem;
+            }
+            
+            .people {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content h1 {
+                font-size: 2rem;
+            }
+            
+            .people {
+                gap: 1.5rem;
+                transform: translateX(-50%) scale(0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sky gradients -->
+        <div class="sky-gradient"></div>
+        <div class="sky-radial"></div>
+
+        <!-- Clouds -->
+        <div class="clouds">
+            <!-- Background clouds -->
+            <div class="cloud-bg-1"></div>
+            <div class="cloud-bg-2"></div>
+            <div class="cloud-bg-3"></div>
+
+            <!-- Mid-layer clouds -->
+            <div class="cloud-mid-1"></div>
+            <div class="cloud-mid-2"></div>
+            <div class="cloud-mid-3"></div>
+            <div class="cloud-mid-4"></div>
+
+            <!-- Foreground clouds -->
+            <div class="cloud-fg-1"></div>
+            <div class="cloud-fg-2"></div>
+        </div>
+
+        <!-- Sun -->
+        <div class="sun-container">
+            <div class="sun-corona-large"></div>
+            <div class="sun-corona-medium"></div>
+            <div class="sun-main">
+                <div class="sun-core"></div>
+            </div>
+        </div>
+
+        <!-- Sun reflection -->
+        <div class="sun-reflection">
+            <div class="reflection-main"></div>
+            <div class="reflection-core"></div>
+            <div class="reflection-ripple-1"></div>
+            <div class="reflection-ripple-2"></div>
+            <div class="reflection-ripple-3"></div>
+        </div>
+
+        <!-- Ocean -->
+        <div class="ocean">
+            <div class="ocean-background"></div>
+            <div class="ocean-texture-1"></div>
+            <div class="ocean-texture-2"></div>
+
+            <!-- Irregular shoreline -->
+            <div class="shoreline"></div>
+            <div class="shoreline-foam"></div>
+
+            <!-- Waves -->
+            <div class="waves">
+                <!-- Large waves -->
+                <div class="wave-large wave-large-1"></div>
+                <div class="wave-large wave-large-2"></div>
+                <div class="wave-large wave-large-3"></div>
+
+                <!-- Medium waves -->
+                <div class="wave-medium wave-medium-1"></div>
+                <div class="wave-medium wave-medium-2"></div>
+                <div class="wave-medium wave-medium-3"></div>
+                <div class="wave-medium wave-medium-4"></div>
+
+                <!-- Small waves -->
+                <div class="wave-small wave-small-1"></div>
+                <div class="wave-small wave-small-2"></div>
+                <div class="wave-small wave-small-3"></div>
+                <div class="wave-small wave-small-4"></div>
+                <div class="wave-small wave-small-5"></div>
+            </div>
+
+            <!-- Wave foam -->
+            <div class="wave-foam"></div>
+            <div class="wave-foam-2"></div>
+        </div>
+
+        <!-- Beach -->
+        <div class="beach">
+            <div class="sand-base"></div>
+            <div class="sand-texture-1"></div>
+            <div class="sand-texture-2"></div>
+            <div class="wet-sand"></div>
+
+            <!-- Sand elements -->
+            <div class="sand-ripple-1"></div>
+            <div class="sand-ripple-2"></div>
+            <div class="sand-ripple-3"></div>
+
+            <!-- Sand mounds -->
+            <div class="sand-mound-1"></div>
+            <div class="sand-mound-2"></div>
+            <div class="sand-mound-3"></div>
+            <div class="sand-mound-4"></div>
+            <div class="sand-mound-5"></div>
+
+            <!-- Rocks -->
+            <div class="rock-1"></div>
+            <div class="rock-2"></div>
+            <div class="rock-3"></div>
+            <div class="rock-4"></div>
+            <div class="rock-5"></div>
+            <div class="rock-6"></div>
+            <div class="rock-7"></div>
+
+            <!-- Seashells -->
+            <div class="shell-1"></div>
+            <div class="shell-2"></div>
+            <div class="shell-3"></div>
+
+            <!-- Seaweed -->
+            <div class="seaweed-1"></div>
+            <div class="seaweed-2"></div>
+            <div class="seaweed-3"></div>
+
+            <!-- Sand castles -->
+            <div class="sand-castle-1"></div>
+            <div class="sand-castle-1-tower"></div>
+            <div class="sand-castle-2"></div>
+        </div>
+
+        <!-- Mountains -->
+        <div class="mountains">
+            <div class="mountain-1"></div>
+            <div class="mountain-2"></div>
+            <div class="mountain-3"></div>
+        </div>
+
+        <!-- Seagulls -->
+        <div class="seagulls">
+            <div class="seagull seagull-large"></div>
+            <div class="seagull seagull-medium-1"></div>
+            <div class="seagull seagull-small-1"></div>
+            <div class="seagull seagull-medium-2"></div>
+            <div class="seagull seagull-small-2"></div>
+        </div>
+
+        <!-- Atmospheric effects -->
+        <div class="atmosphere-1"></div>
+        <div class="atmosphere-2"></div>
+
+        <!-- People silhouettes -->
+        <div class="people">
+            <!-- Person 1 - Female -->
+            <div class="person-1">
+                <div class="person-1-head">
+                    <div class="person-1-hair-1"></div>
+                    <div class="person-1-hair-2"></div>
+                </div>
+                <div class="person-1-neck"></div>
+                <div class="person-1-torso">
+                    <div class="person-1-arm-left-1"></div>
+                    <div class="person-1-arm-left-2"></div>
+                    <div class="person-1-arm-right-1"></div>
+                    <div class="person-1-arm-right-2"></div>
+                </div>
+                <div class="person-fix"></div>
+                <div class="person-1-legs">
+                    <div class="person-1-leg-left"></div>
+                    <div class="person-1-leg-left-lower"></div>
+                    <div class="person-1-leg-right"></div>
+                    <div class="person-1-leg-right-lower"></div>
+                </div>
+            </div>
+
+            <!-- Person 2 - Male -->
+            <div class="person-2">
+                <div class="person-2-head">
+                    <div class="person-2-hair"></div>
+                </div>
+                <div class="person-2-neck"></div>
+                <div class="person-2-torso">
+                    <div class="person-2-arm-left-1"></div>
+                    <div class="person-2-arm-left-2"></div>
+                    <div class="person-2-arm-right-1"></div>
+                    <div class="person-2-arm-right-2"></div>
+                </div>
+                <div class="person-fix"></div>
+                <div class="person-2-legs">
+                    <div class="person-2-leg-left"></div>
+                    <div class="person-2-leg-left-lower"></div>
+                    <div class="person-2-leg-right"></div>
+                    <div class="person-2-leg-right-lower"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content overlay -->
+        <div class="content">
+            <div class="fondo-difuminado">
+                <div class="h1">
+                    La unica forma de ver este mensaje es revisando el codigo, si alguna vez lo vez sofía tqm, ojala poder estar a tu lado para siempre --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
