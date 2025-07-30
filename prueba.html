@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sincronizador de Letras por Estrofas y Aparición de Líneas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        audio {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+        .lyrics-container {
+            min-height: 150px; /* Altura mínima para las estrofas */
+            max-height: 250px; /* Altura máxima para permitir scroll si la estrofa es larga */
+            overflow-y: auto; /* Habilita el scroll vertical si es necesario */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centra verticalmente las estrofas */
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            transition: opacity 0.2s ease-in-out; /* Transición más rápida para el cambio de estrofa */
+        }
+        .lyric-line {
+            padding: 3px 0;
+            margin: 0;
+            color: #555; /* Color por defecto de la letra */
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0; /* Inicialmente oculta */
+            transition: opacity 0.3s ease; /* Transición suave para la aparición de la línea */
+        }
+        .lyric-line.visible {
+            opacity: 1; /* Se vuelve visible */
+        }
+        .lyrics-container.hidden {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sincronizador de Letras</h1>
+
+        <audio id="audioPlayer" controls preload="metadata">
+            <source src="videoplayback.mp3" type="audio/mp3">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+
+        <div id="lyricsContainer" class="lyrics-container">
+            <!-- Las letras se cargarán aquí por JavaScript -->
+            <p class="lyric-line visible">Cargando letras...</p>
+        </div>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const lyricsContainer = document.getElementById('lyricsContainer');
+
+        // Define todas las líneas de la canción con sus tiempos absolutos
+        const lyrics = [
+            { time: 0, text: ""},
+            { time: 10, text: "Desde el día en que te vi" },
+            { time: 13, text: "Sentí como que ya te conocía" },
+            { time: 16, text: "Un minuto fue suficiente"},
+            { time: 21, text: "Y ya sentía quererte"},
+
+            { time: 23, text: "Me encanta que seas tan ocurrente"},
+            { time: 25, text: "De repente dices cosas que me vuelan la mente"},
+            { time: 28, text: "Simplemente, pero siempre estás presente"},
+            { time: 33, text: "Aunque no pueda verte"},
+
+            { time: 36, text: "De locura, casi estamos igual"},
+            { time: 41, text: "De un día a otro, me volví tu mega fan"},
+
+            { time: 46, text: "Y ya eres mi persona favorita"},
+            { time: 49, text: "Cada minuto a tu lado es genial"},
+            { time: 52, text: "Y no hay nadie en el mundo mundial"},
+            { time: 55, text: "Que ame más que estar contigo"},
+            { time: 58, text: "Cada momento lo haces especial"},
+
+            { time: 62, text: "Tú eres mi persona favorita"},
+            { time: 65, text: "Y aunque no siempre lo ando diciendo"},
+            { time: 68, text: "Es buen momento de decirte que te quiero"},
+            { time: 71, text: "Te quiero, te quiero y siempre así será"},
+
+            { time: 74, text: ""},
+
+            { time: 80, text: "Creo"},
+            { time: 82, text: "Que por más que pase y pase el tiempo"},
+            { time: 84, text: "Aunque llueva o truene, nunca pasará lo nuestro"},
+            { time: 90, text: "Al menos eso siento"},
+
+            { time: 92, text: "De locura, casi estamos igual"},
+            { time: 98, text: "De un día a otro, me volví tu mega fan"},
+
+            { time: 103, text: "Y ya eres mi persona favorita"},
+            { time: 106, text: "Cada minuto a tu lado es genial"},
+            { time: 109, text: "Y no hay nadie en el mundo mundial"},
+            { time: 112, text: "Que ame más que estar contigo"},
+            { time: 115, text: "Cada momento lo haces especial"},
+
+            { time: 119, text: "Tú eres mi persona favorita"},
+            { time: 122, text: "Y aunque no siempre lo ando diciendo"},
+            { time: 125, text: "Es buen momento de decirte que te quiero"},
+            { time: 129, text: "De decirte que te quiero"},
+
+            { time: 134, text: "Apareciste justamente"},
+            { time: 137, text: "Cuando ya estaba listo para quererte"},
+            { time: 140, text: "¡Qué suerte!"},
+            { time: 141, text: "Cómo te fui a encontrar"},
+
+            { time: 144, text: "Y ya eres mi persona favorita"},
+            { time: 147, text: "Cada minuto a tu lado es genial"},
+            { time: 150, text: "Y no hay nadie en el mundo mundial"},
+            { time: 153, text: "Que ame más que estar contigo"},
+            { time: 156, text: "Cada momento lo haces especial"},
+
+            { time: 160, text: "Tú eres mi persona favorita"},
+            { time: 163, text: "Y aunque no siempre lo ando diciendo"},
+            { time: 165, text: "Es buen momento de decirte que te quiero"},
+            { time: 169, text: "Te quiero (te quiero)"},
+
+            { time: 173, text: "Y siempre así será"},
+            { time: 180, text: "Y siempre así será"},
+
+            { time: 183, text: ""}
+        ];
+
+        // Define los índices de inicio de cada estrofa en el array 'lyrics'
+        // Cada número es el índice del array `lyrics` donde comienza una nueva estrofa.
+        const stanzaStartIndices = [ 0, 1, 5, 9, 11, 16, 20, 21, 25, 27, 32, 36, 40, 45, 49, 51, 52];
+
+        let currentStanzaIndex = -1; // Índice de la estrofa actualmente visible
+        let lastVisibleLyricOriginalIndex = -1; // Último índice original de la línea que se hizo visible
+
+        // Función para obtener las líneas de una estrofa específica
+        function getLinesForStanza(stanzaIdx) {
+            const startIndex = stanzaStartIndices[stanzaIdx];
+            // El final de la estrofa es el inicio de la siguiente, o el final del array lyrics
+            const endIndex = (stanzaIdx + 1 < stanzaStartIndices.length) ? stanzaStartIndices[stanzaIdx + 1] : lyrics.length;
+            return lyrics.slice(startIndex, endIndex);
+        }
+
+        // Función para renderizar las líneas de la estrofa actual
+        function renderCurrentStanzaLines(stanzaIdx) {
+            lyricsContainer.innerHTML = ''; // Limpiar contenedor
+            const linesToRender = getLinesForStanza(stanzaIdx);
+            linesToRender.forEach((lyric) => {
+                const p = document.createElement('p');
+                p.classList.add('lyric-line'); // Inicialmente oculta por CSS
+                p.textContent = lyric.text;
+                // Usamos un data-attribute para almacenar el índice original de la línea en el array 'lyrics'
+                p.dataset.originalIndex = lyrics.indexOf(lyric);
+                lyricsContainer.appendChild(p);
+            });
+        }
+
+        // Función que se ejecuta cada vez que el tiempo del audio cambia
+        function handleTimeUpdate() {
+            const currentTime = audioPlayer.currentTime;
+            let newStanzaIndex = -1;
+            let latestLineToMakeVisibleOriginalIndex = -1;
+
+            // 1. Determinar la estrofa actual
+            for (let i = 0; i < stanzaStartIndices.length; i++) {
+                const stanzaStartTime = lyrics[stanzaStartIndices[i]].time;
+                const nextStanzaStartTime = (i + 1 < stanzaStartIndices.length) ? lyrics[stanzaStartIndices[i+1]].time : audioPlayer.duration + 1;
+
+                if (currentTime >= stanzaStartTime && currentTime < nextStanzaStartTime) {
+                    newStanzaIndex = i;
+                    break;
+                }
+            }
+
+            // Si la estrofa ha cambiado, actualizar el contenido del contenedor
+            if (newStanzaIndex !== currentStanzaIndex) {
+                lyricsContainer.classList.add('hidden'); // Iniciar fade-out
+                setTimeout(() => {
+                    renderCurrentStanzaLines(newStanzaIndex);
+                    lyricsContainer.classList.remove('hidden'); // Iniciar fade-in
+                    lastVisibleLyricOriginalIndex = -1; // Resetear el índice de la última línea visible para la nueva estrofa
+                }, 200); // Transición más rápida
+                currentStanzaIndex = newStanzaIndex;
+            }
+
+            // 2. Determinar y mostrar las líneas activas dentro de la estrofa actual
+            // Solo si hay una estrofa visible y no estamos en medio de una transición de estrofa
+            if (currentStanzaIndex !== -1 && !lyricsContainer.classList.contains('hidden')) {
+                const currentStanzaLines = getLinesForStanza(currentStanzaIndex);
+                
+                for (let i = 0; i < currentStanzaLines.length; i++) {
+                    if (currentTime >= currentStanzaLines[i].time) {
+                        latestLineToMakeVisibleOriginalIndex = lyrics.indexOf(currentStanzaLines[i]);
+                    } else {
+                        break;
+                    }
+                }
+
+                // Hacer visibles todas las líneas hasta la última que debería estarlo
+                // y que aún no lo está.
+                if (latestLineToMakeVisibleOriginalIndex > lastVisibleLyricOriginalIndex) {
+                    for (let i = lastVisibleLyricOriginalIndex + 1; i <= latestLineToMakeVisibleOriginalIndex; i++) {
+                        const lineElement = lyricsContainer.querySelector(`[data-original-index="${i}"]`);
+                        if (lineElement) {
+                            lineElement.classList.add('visible');
+                            // Desplazar la línea activa al centro de la vista dentro del contenedor de letras
+                            lineElement.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center"
+                            });
+                        }
+                    }
+                    lastVisibleLyricOriginalIndex = latestLineToMakeVisibleOriginalIndex;
+                }
+            }
+        }
+
+        // Mostrar la primera estrofa al cargar
+        renderCurrentStanzaLines(0);
+        currentStanzaIndex = 0; // Inicializar el índice de la estrofa actual
+        // La primera línea de la primera estrofa (índice 0) debe ser visible al inicio
+        const initialLineElement = lyricsContainer.querySelector(`[data-original-index="0"]`);
+        if (initialLineElement) {
+            initialLineElement.classList.add('visible');
+            lastVisibleLyricOriginalIndex = 0;
+        }
+
+
+        // Añadir el event listener para el evento 'timeupdate'
+        audioPlayer.addEventListener('timeupdate', handleTimeUpdate);
+    </script>
+</body>
+</html>
