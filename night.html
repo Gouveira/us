@@ -79,10 +79,6 @@
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             letter-spacing: 0.5px;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
         }
         
         .lyric-line::before {
@@ -138,6 +134,95 @@
             opacity: 0;
             transform: scale(0.95);
         }
+
+        .play-button {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.play-button::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 20px solid rgba(255, 255, 255, 0.9);
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    margin-left: 4px;
+}
+
+.play-button.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+.mobile-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: none;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 10px 20px;
+    gap: 15px;
+    align-items: center;
+}
+
+.mobile-controls.visible {
+    display: flex;
+}
+
+.control-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 14px;
+}
+
+.control-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.time-display {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    min-width: 80px;
+    text-align: center;
+}
 
         .h1 {
             color: transparent;
@@ -1554,202 +1639,309 @@
                 <p class="lyric-line visible">Cargando letras...</p>
         </div>
             </div>
+        <!-- Botón de reproducción para móviles -->
+<div id="playButton" class="play-button"></div>
+
+<!-- Controles móviles -->
+<div id="mobileControls" class="mobile-controls">
+    <div id="playPauseBtn" class="control-button">▶</div>
+    <div id="timeDisplay" class="time-display">0:00 / 0:00</div>
+    <div id="restartBtn" class="control-button">⏮</div>
+</div>
         </div>
     </div>
 
     <script>
         const audioPlayer = document.getElementById('audioPlayer');
-        const lyricsContainer = document.getElementById('lyricsContainer');
+const lyricsContainer = document.getElementById('lyricsContainer');
+const playButton = document.getElementById('playButton');
+const mobileControls = document.getElementById('mobileControls');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const timeDisplay = document.getElementById('timeDisplay');
+const restartBtn = document.getElementById('restartBtn');
 
-        // Define todas las líneas de la canción con sus tiempos absolutos
-        const lyrics = [
-            { time: 0, text: ""},
-            { time: 10, text: "Desde el día en que te vi" },
-            { time: 13, text: "Sentí como que ya te conocía" },
-            { time: 16, text: "Un minuto fue suficiente"},
-            { time: 21, text: "Y ya sentía quererte"},
+// Detectar si es un dispositivo móvil
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-            { time: 23, text: "Me encanta que seas tan ocurrente"},
-            { time: 25, text: "De repente dices cosas que me vuelan la mente"},
-            { time: 28, text: "Simplemente, pero siempre estás presente"},
-            { time: 33, text: "Aunque no pueda verte"},
+// Define todas las líneas de la canción con sus tiempos absolutos
+const lyrics = [
+    { time: 0, text: ""},
+    { time: 10, text: "Desde el día en que te vi" },
+    { time: 13, text: "Sentí como que ya te conocía" },
+    { time: 16, text: "Un minuto fue suficiente"},
+    { time: 21, text: "Y ya sentía quererte"},
 
-            { time: 36, text: "De locura, casi estamos igual"},
-            { time: 41, text: "De un día a otro, me volví tu mega fan"},
+    { time: 23, text: "Me encanta que seas tan ocurrente"},
+    { time: 25, text: "De repente dices cosas que me vuelan la mente"},
+    { time: 28, text: "Simplemente, pero siempre estás presente"},
+    { time: 33, text: "Aunque no pueda verte"},
 
-            { time: 46, text: "Y ya eres mi persona favorita"},
-            { time: 49, text: "Cada minuto a tu lado es genial"},
-            { time: 52, text: "Y no hay nadie en el mundo mundial"},
-            { time: 55, text: "Que ame más que estar contigo"},
-            { time: 58, text: "Cada momento lo haces especial"},
+    { time: 36, text: "De locura, casi estamos igual"},
+    { time: 41, text: "De un día a otro, me volví tu mega fan"},
 
-            { time: 62, text: "Tú eres mi persona favorita"},
-            { time: 65, text: "Y aunque no siempre lo ando diciendo"},
-            { time: 68, text: "Es buen momento de decirte que te quiero"},
-            { time: 71, text: "Te quiero, te quiero y siempre así será"},
+    { time: 46, text: "Y ya eres mi persona favorita"},
+    { time: 49, text: "Cada minuto a tu lado es genial"},
+    { time: 52, text: "Y no hay nadie en el mundo mundial"},
+    { time: 55, text: "Que ame más que estar contigo"},
+    { time: 58, text: "Cada momento lo haces especial"},
 
-            { time: 74, text: ""},
+    { time: 62, text: "Tú eres mi persona favorita"},
+    { time: 65, text: "Y aunque no siempre lo ando diciendo"},
+    { time: 68, text: "Es buen momento de decirte que te quiero"},
+    { time: 71, text: "Te quiero, te quiero y siempre así será"},
 
-            { time: 80, text: "Creo"},
-            { time: 82, text: "Que por más que pase y pase el tiempo"},
-            { time: 84, text: "Aunque llueva o truene, nunca pasará lo nuestro"},
-            { time: 90, text: "Al menos eso siento"},
+    { time: 74, text: ""},
 
-            { time: 92, text: "De locura, casi estamos igual"},
-            { time: 98, text: "De un día a otro, me volví tu mega fan"},
+    { time: 80, text: "Creo"},
+    { time: 82, text: "Que por más que pase y pase el tiempo"},
+    { time: 84, text: "Aunque llueva o truene, nunca pasará lo nuestro"},
+    { time: 90, text: "Al menos eso siento"},
 
-            { time: 103, text: "Y ya eres mi persona favorita"},
-            { time: 106, text: "Cada minuto a tu lado es genial"},
-            { time: 109, text: "Y no hay nadie en el mundo mundial"},
-            { time: 112, text: "Que ame más que estar contigo"},
-            { time: 115, text: "Cada momento lo haces especial"},
+    { time: 92, text: "De locura, casi estamos igual"},
+    { time: 98, text: "De un día a otro, me volví tu mega fan"},
 
-            { time: 119, text: "Tú eres mi persona favorita"},
-            { time: 122, text: "Y aunque no siempre lo ando diciendo"},
-            { time: 125, text: "Es buen momento de decirte que te quiero"},
-            { time: 129, text: "De decirte que te quiero"},
+    { time: 103, text: "Y ya eres mi persona favorita"},
+    { time: 106, text: "Cada minuto a tu lado es genial"},
+    { time: 109, text: "Y no hay nadie en el mundo mundial"},
+    { time: 112, text: "Que ame más que estar contigo"},
+    { time: 115, text: "Cada momento lo haces especial"},
 
-            { time: 134, text: "Apareciste justamente"},
-            { time: 137, text: "Cuando ya estaba listo para quererte"},
-            { time: 140, text: "¡Qué suerte!"},
-            { time: 141, text: "Cómo te fui a encontrar"},
+    { time: 119, text: "Tú eres mi persona favorita"},
+    { time: 122, text: "Y aunque no siempre lo ando diciendo"},
+    { time: 125, text: "Es buen momento de decirte que te quiero"},
+    { time: 129, text: "De decirte que te quiero"},
 
-            { time: 144, text: "Y ya eres mi persona favorita"},
-            { time: 147, text: "Cada minuto a tu lado es genial"},
-            { time: 150, text: "Y no hay nadie en el mundo mundial"},
-            { time: 153, text: "Que ame más que estar contigo"},
-            { time: 156, text: "Cada momento lo haces especial"},
+    { time: 134, text: "Apareciste justamente"},
+    { time: 137, text: "Cuando ya estaba listo para quererte"},
+    { time: 140, text: "¡Qué suerte!"},
+    { time: 141, text: "Cómo te fui a encontrar"},
 
-            { time: 160, text: "Tú eres mi persona favorita"},
-            { time: 163, text: "Y aunque no siempre lo ando diciendo"},
-            { time: 165, text: "Es buen momento de decirte que te quiero"},
-            { time: 169, text: "Te quiero (te quiero)"},
+    { time: 144, text: "Y ya eres mi persona favorita"},
+    { time: 147, text: "Cada minuto a tu lado es genial"},
+    { time: 150, text: "Y no hay nadie en el mundo mundial"},
+    { time: 153, text: "Que ame más que estar contigo"},
+    { time: 156, text: "Cada momento lo haces especial"},
 
-            { time: 173, text: "Y siempre así será"},
-            { time: 180, text: "Y siempre así será"},
+    { time: 160, text: "Tú eres mi persona favorita"},
+    { time: 163, text: "Y aunque no siempre lo ando diciendo"},
+    { time: 165, text: "Es buen momento de decirte que te quiero"},
+    { time: 169, text: "Te quiero (te quiero)"},
 
-            { time: 182, text: ""}
-        ];
+    { time: 173, text: "Y siempre así será"},
+    { time: 180, text: "Y siempre así será"},
 
-        // Define los índices de inicio de cada estrofa en el array 'lyrics'
-        const stanzaStartIndices = [ 0, 1, 5, 9, 11, 16, 20, 21, 25, 27, 32, 36, 40, 45, 49, 51, 52];
+    { time: 182, text: ""}
+];
 
-        let currentStanzaIndex = -1;
-        let lastVisibleLyricOriginalIndex = -1;
+// Define los índices de inicio de cada estrofa en el array 'lyrics'
+const stanzaStartIndices = [ 0, 1, 5, 9, 11, 16, 20, 21, 25, 27, 32, 36, 40, 45, 49, 51, 52];
 
-        // Función para obtener las líneas de una estrofa específica
-        function getLinesForStanza(stanzaIdx) {
-            const startIndex = stanzaStartIndices[stanzaIdx];
-            const endIndex = (stanzaIdx + 1 < stanzaStartIndices.length) ? stanzaStartIndices[stanzaIdx + 1] : lyrics.length;
-            return lyrics.slice(startIndex, endIndex);
-        }
+let currentStanzaIndex = -1;
+let lastVisibleLyricOriginalIndex = -1;
+let isPlaying = false;
 
-        // Función para renderizar las líneas de la estrofa actual
-        function renderCurrentStanzaLines(stanzaIdx) {
-            lyricsContainer.innerHTML = '';
-            const linesToRender = getLinesForStanza(stanzaIdx);
-            linesToRender.forEach((lyric) => {
-                const p = document.createElement('p');
-                p.classList.add('lyric-line');
-                p.textContent = lyric.text;
-                p.dataset.originalIndex = lyrics.indexOf(lyric);
-                lyricsContainer.appendChild(p);
-            });
-        }
+// Función para formatear tiempo
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
 
-        // Función que se ejecuta cada vez que el tiempo del audio cambia
-        function handleTimeUpdate() {
-            const currentTime = audioPlayer.currentTime;
-            let newStanzaIndex = -1;
-            let latestLineToMakeVisibleOriginalIndex = -1;
+// Función para actualizar la visualización del tiempo
+function updateTimeDisplay() {
+    const current = formatTime(audioPlayer.currentTime);
+    const duration = formatTime(audioPlayer.duration || 0);
+    timeDisplay.textContent = `${current} / ${duration}`;
+}
 
-            // Verificar si la canción ha terminado
-            const lastLyricTime = lyrics[lyrics.length - 1].time;
-            if (currentTime > lastLyricTime + 2) { // 2 segundos después de la última línea
-                if (!lyricsContainer.classList.contains('hidden')) {
-                    lyricsContainer.classList.add('hidden');
-                    currentStanzaIndex = -1;
-                    lastVisibleLyricOriginalIndex = -1;
-                }
-                return; // Salir de la función si la canción ha terminado
-            }
+// Función para obtener las líneas de una estrofa específica
+function getLinesForStanza(stanzaIdx) {
+    const startIndex = stanzaStartIndices[stanzaIdx];
+    const endIndex = (stanzaIdx + 1 < stanzaStartIndices.length) ? stanzaStartIndices[stanzaIdx + 1] : lyrics.length;
+    return lyrics.slice(startIndex, endIndex);
+}
 
-            // 1. Determinar la estrofa actual
-            for (let i = 0; i < stanzaStartIndices.length; i++) {
-                const stanzaStartTime = lyrics[stanzaStartIndices[i]].time;
-                const nextStanzaStartTime = (i + 1 < stanzaStartIndices.length) ? lyrics[stanzaStartIndices[i+1]].time : audioPlayer.duration + 1;
+// Función para renderizar las líneas de la estrofa actual
+function renderCurrentStanzaLines(stanzaIdx) {
+    lyricsContainer.innerHTML = '';
+    const linesToRender = getLinesForStanza(stanzaIdx);
+    linesToRender.forEach((lyric) => {
+        const p = document.createElement('p');
+        p.classList.add('lyric-line');
+        p.textContent = lyric.text;
+        p.dataset.originalIndex = lyrics.indexOf(lyric);
+        lyricsContainer.appendChild(p);
+    });
+}
 
-                if (currentTime >= stanzaStartTime && currentTime < nextStanzaStartTime) {
-                    newStanzaIndex = i;
-                    break;
-                }
-            }
+// Función que se ejecuta cada vez que el tiempo del audio cambia
+function handleTimeUpdate() {
+    updateTimeDisplay();
+    
+    const currentTime = audioPlayer.currentTime;
+    let newStanzaIndex = -1;
+    let latestLineToMakeVisibleOriginalIndex = -1;
 
-            // Si la estrofa ha cambiado, actualizar el contenido del contenedor
-            if (newStanzaIndex !== currentStanzaIndex) {
-                lyricsContainer.classList.add('hidden');
-                setTimeout(() => {
-                    renderCurrentStanzaLines(newStanzaIndex);
-                    lyricsContainer.classList.remove('hidden');
-                    lastVisibleLyricOriginalIndex = -1;
-                }, 300);
-                currentStanzaIndex = newStanzaIndex;
-            }
-
-            // 2. Determinar y mostrar las líneas activas dentro de la estrofa actual
-            if (currentStanzaIndex !== -1 && !lyricsContainer.classList.contains('hidden')) {
-                const currentStanzaLines = getLinesForStanza(currentStanzaIndex);
-                
-                for (let i = 0; i < currentStanzaLines.length; i++) {
-                    if (currentTime >= currentStanzaLines[i].time) {
-                        latestLineToMakeVisibleOriginalIndex = lyrics.indexOf(currentStanzaLines[i]);
-                    } else {
-                        break;
-                    }
-                }
-
-                // Hacer visibles todas las líneas hasta la última que debería estarlo
-                if (latestLineToMakeVisibleOriginalIndex > lastVisibleLyricOriginalIndex) {
-                    for (let i = lastVisibleLyricOriginalIndex + 1; i <= latestLineToMakeVisibleOriginalIndex; i++) {
-                        const lineElement = lyricsContainer.querySelector(`[data-original-index="${i}"]`);
-                        if (lineElement) {
-                            lineElement.classList.add('visible');
-                            lineElement.scrollIntoView({
-                                behavior: "smooth",
-                                block: "center"
-                            });
-                        }
-                    }
-                    lastVisibleLyricOriginalIndex = latestLineToMakeVisibleOriginalIndex;
-                }
-            }
-        }
-
-        // Mostrar la primera estrofa al cargar
-        renderCurrentStanzaLines(0);
-        currentStanzaIndex = 0;
-        const initialLineElement = lyricsContainer.querySelector(`[data-original-index="0"]`);
-        if (initialLineElement) {
-            initialLineElement.classList.add('visible');
-            lastVisibleLyricOriginalIndex = 0;
-        }
-
-        // Añadir el event listener para el evento 'timeupdate'
-        audioPlayer.addEventListener('timeupdate', handleTimeUpdate);
-
-        // Manejar el final de la canción
-        audioPlayer.addEventListener('ended', () => {
+    // Verificar si la canción ha terminado
+    const lastLyricTime = lyrics[lyrics.length - 1].time;
+    if (currentTime > lastLyricTime + 2) {
+        if (!lyricsContainer.classList.contains('hidden')) {
             lyricsContainer.classList.add('hidden');
             currentStanzaIndex = -1;
             lastVisibleLyricOriginalIndex = -1;
-        });
+        }
+        return;
+    }
 
-        // Manejar el autoplay
-        audioPlayer.addEventListener('canplaythrough', () => {
-            audioPlayer.play().catch(e => {
-                console.log("Autoplay blocked. User interaction might be required.", e);
-            });
-        }, { once: true });
+    // 1. Determinar la estrofa actual
+    for (let i = 0; i < stanzaStartIndices.length; i++) {
+        const stanzaStartTime = lyrics[stanzaStartIndices[i]].time;
+        const nextStanzaStartTime = (i + 1 < stanzaStartIndices.length) ? lyrics[stanzaStartIndices[i+1]].time : audioPlayer.duration + 1;
+
+        if (currentTime >= stanzaStartTime && currentTime < nextStanzaStartTime) {
+            newStanzaIndex = i;
+            break;
+        }
+    }
+
+    // Si la estrofa ha cambiado, actualizar el contenido del contenedor
+    if (newStanzaIndex !== currentStanzaIndex) {
+        lyricsContainer.classList.add('hidden');
+        setTimeout(() => {
+            renderCurrentStanzaLines(newStanzaIndex);
+            lyricsContainer.classList.remove('hidden');
+            lastVisibleLyricOriginalIndex = -1;
+        }, 300);
+        currentStanzaIndex = newStanzaIndex;
+    }
+
+    // 2. Determinar y mostrar las líneas activas dentro de la estrofa actual
+    if (currentStanzaIndex !== -1 && !lyricsContainer.classList.contains('hidden')) {
+        const currentStanzaLines = getLinesForStanza(currentStanzaIndex);
+        
+        for (let i = 0; i < currentStanzaLines.length; i++) {
+            if (currentTime >= currentStanzaLines[i].time) {
+                latestLineToMakeVisibleOriginalIndex = lyrics.indexOf(currentStanzaLines[i]);
+            } else {
+                break;
+            }
+        }
+
+        if (latestLineToMakeVisibleOriginalIndex > lastVisibleLyricOriginalIndex) {
+            for (let i = lastVisibleLyricOriginalIndex + 1; i <= latestLineToMakeVisibleOriginalIndex; i++) {
+                const lineElement = lyricsContainer.querySelector(`[data-original-index="${i}"]`);
+                if (lineElement) {
+                    lineElement.classList.add('visible');
+                    lineElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }
+            }
+            lastVisibleLyricOriginalIndex = latestLineToMakeVisibleOriginalIndex;
+        }
+    }
+}
+
+// Función para iniciar la reproducción
+function startPlayback() {
+    audioPlayer.play().then(() => {
+        isPlaying = true;
+        playButton.classList.add('hidden');
+        if (isMobile) {
+            mobileControls.classList.add('visible');
+        }
+        playPauseBtn.textContent = '⏸';
+    }).catch(e => {
+        console.log("Error al reproducir:", e);
+    });
+}
+
+// Función para pausar/reanudar
+function togglePlayPause() {
+    if (isPlaying) {
+        audioPlayer.pause();
+        isPlaying = false;
+        playPauseBtn.textContent = '▶';
+    } else {
+        startPlayback();
+    }
+}
+
+// Función para reiniciar
+function restartSong() {
+    audioPlayer.currentTime = 0;
+    currentStanzaIndex = -1;
+    lastVisibleLyricOriginalIndex = -1;
+    lyricsContainer.classList.add('hidden');
+    setTimeout(() => {
+        renderCurrentStanzaLines(0);
+        lyricsContainer.classList.remove('hidden');
+        currentStanzaIndex = 0;
+    }, 300);
+}
+
+// Event listeners
+playButton.addEventListener('click', startPlayback);
+playPauseBtn.addEventListener('click', togglePlayPause);
+restartBtn.addEventListener('click', restartSong);
+
+// Event listeners del audio
+audioPlayer.addEventListener('timeupdate', handleTimeUpdate);
+audioPlayer.addEventListener('loadedmetadata', updateTimeDisplay);
+
+audioPlayer.addEventListener('ended', () => {
+    lyricsContainer.classList.add('hidden');
+    currentStanzaIndex = -1;
+    lastVisibleLyricOriginalIndex = -1;
+    isPlaying = false;
+    playPauseBtn.textContent = '▶';
+    if (isMobile) {
+        mobileControls.classList.remove('visible');
+        playButton.classList.remove('hidden');
+    }
+});
+
+audioPlayer.addEventListener('pause', () => {
+    isPlaying = false;
+    playPauseBtn.textContent = '▶';
+});
+
+audioPlayer.addEventListener('play', () => {
+    isPlaying = true;
+    playPauseBtn.textContent = '⏸';
+});
+
+// Inicialización
+renderCurrentStanzaLines(0);
+currentStanzaIndex = 0;
+const initialLineElement = lyricsContainer.querySelector(`[data-original-index="0"]`);
+if (initialLineElement) {
+    initialLineElement.classList.add('visible');
+    lastVisibleLyricOriginalIndex = 0;
+}
+// Manejar el autoplay
+audioPlayer.addEventListener('canplaythrough', () => {
+    audioPlayer.play().catch(e => {
+        console.log("Autoplay blocked. User interaction might be required.", e);
+    });
+}, { once: true });    
+
+// Mostrar botón de reproducción en móviles o si el autoplay falla
+if (isMobile) {
+    playButton.classList.remove('hidden');
+} else {
+    // Intentar autoplay en desktop
+    audioPlayer.addEventListener('canplaythrough', () => {
+        audioPlayer.play().then(() => {
+            isPlaying = true;
+            playButton.classList.add('hidden');
+        }).catch(e => {
+            console.log("Autoplay blocked. Showing play button.");
+            playButton.classList.remove('hidden');
+        });
+    }, { once: true });
+}
     </script>
 </body>
 </html>
