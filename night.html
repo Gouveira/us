@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,78 +26,149 @@
         .text {
             position: fixed;
             width: 100%;
-            max-width: 600px;
-            background-color: #ffffff00;
-            border-radius: 8px;
-            padding: 25px;
+            max-width: 700px;
+            background-color: transparent;
+            border-radius: 0;
+            padding: 30px;
             text-align: center;
+            border: none;
         }
+        
         h1 {
             color: #333;
             margin-bottom: 25px;
             font-size: 1.8em;
         }
+        
         audio {
             display: none;
         }
+        
         .lyrics-container {
-            min-height: 150px; /* Altura máxima para permitir scroll si la estrofa es larga */
+            min-height: 180px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centra verticalmente las estrofas */
+            justify-content: center;
             align-items: center;
-            border: 1px solid #dddddd00;
-            border-radius: 5px;
-            padding: 15px;
-            background-color: #f9f9f900;
-            transition: opacity 0.2s ease-in-out; /* Transición más rápida para el cambio de estrofa */
+            border-radius: 0;
+            padding: 20px;
+            background: transparent;
+            transition: all 0.3s ease-in-out;
+            position: relative;
         }
+        
+        
         .lyric-line {
-            padding: 3px 0;
-            margin: 0;
-            font-size: 1em;
-            color: #222;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 1);
-            line-height: 0.5;
-            opacity: 0; /* Inicialmente oculta */
-            transition: opacity 0.3s ease; /* Transición suave para la aparición de la línea */
+            padding: 8px 0;
+            margin: 5px 0;
+            font-size: 1.4em;
+            font-weight: 600;
+            background: linear-gradient(45deg, #ffffff, #f0f8ff, #e6f3ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            letter-spacing: 0.5px;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
+        
+        .lyric-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            transition: width 0.6s ease;
+        }
+        
         .lyric-line.visible {
-            opacity: 1; /* Se vuelve visible */
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            animation: lyricGlow 2s ease-in-out;
         }
+        
+        .lyric-line.visible::before {
+            width: 100%;
+        }
+        
+        @keyframes lyricGlow {
+            0% {
+                text-shadow: 
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(255, 255, 255, 0.4),
+                    2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
+            50% {
+                text-shadow: 
+                    0 0 20px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 255, 255, 0.8),
+                    0 0 40px rgba(255, 255, 255, 0.6),
+                    0 0 50px rgba(135, 206, 250, 0.4),
+                    2px 2px 4px rgba(0, 0, 0, 0.8);
+                transform: translateY(0) scale(1.05);
+            }
+            100% {
+                text-shadow: 
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(255, 255, 255, 0.4),
+                    2px 2px 4px rgba(0, 0, 0, 0.8);
+                transform: translateY(0) scale(1);
+            }
+        }
+        
         .lyrics-container.hidden {
             opacity: 0;
+            transform: scale(0.95);
         }
 
         .h1 {
             color: transparent;
             font-size: 1000px;    
-            user-select: none;  /* Evita que se seleccione */
+            user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
         }
+        
         .fondo-difuminado {
             background-size: cover;
             height: 100vh;
             backdrop-filter: blur(4.5px);
-            -webkit-backdrop-filter: blur(4.5px); /* para compatibilidad con Safari */
+            -webkit-backdrop-filter: blur(4.5px);
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
         }
+        
         /* Complex sky with multiple gradient layers */
         .sky-gradient {
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom, 
-                #0a0a2a, /* Muy oscuro */
+                #0a0a2a,
                 #1a1a4a, 
                 #2a2a6a, 
                 #3a3a8a, 
-                #4a4a9a /* Más claro pero aún oscuro */
+                #4a4a9a
             );
         }
 
@@ -106,7 +176,7 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle, 
-                rgba(100, 100, 150, 0.2), /* Resplandor lunar sutil */
+                rgba(100, 100, 150, 0.2),
                 transparent, 
                 transparent
             );
@@ -125,7 +195,7 @@
             left: 16.666667%;
             width: 12rem;
             height: 6rem;
-            background: rgba(100, 100, 120, 0.1); /* Nubes más oscuras y sutiles */
+            background: rgba(100, 100, 120, 0.1);
             border-radius: 50%;
             filter: blur(16px);
             transform: rotate(12deg);
@@ -227,26 +297,26 @@
             transform: rotate(20deg);
         }
 
-        /* Enhanced moon (formerly sun) */
-        .sun-container { /* Renamed to moon-container conceptually */
+        /* Enhanced moon */
+        .sun-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
-        .sun-corona-large { /* Moon glow */
+        .sun-corona-large {
             width: 8rem;
             height: 8rem;
-            background: rgba(200, 200, 255, 0.1); /* Resplandor azulado/plateado */
+            background: rgba(200, 200, 255, 0.1);
             border-radius: 50%;
-            filter: blur(24px); /* Menos intenso que el sol */
+            filter: blur(24px);
             position: absolute;
             top: -2rem;
             left: -2rem;
         }
 
-        .sun-corona-medium { /* Moon glow inner */
+        .sun-corona-medium {
             width: 6rem;
             height: 6rem;
             background: rgba(220, 220, 255, 0.2);
@@ -257,16 +327,16 @@
             left: -1rem;
         }
 
-        .sun-main { /* Moon main body */
+        .sun-main {
             width: 8rem;
             height: 8rem;
-            background: radial-gradient(circle, #f0f0f0, #c0c0c0); /* Tonos de gris para la luna */
+            background: radial-gradient(circle, #f0f0f0, #c0c0c0);
             border-radius: 50%;
-            filter: blur(1px); /* Suave */
+            filter: blur(1px);
             opacity: 0.9;
         }
 
-        .sun-core { /* Moon core/highlight */
+        .sun-core {
             position: absolute;
             inset: 0;
             width: 3rem;
@@ -276,7 +346,7 @@
             margin: 0.5rem;
         }
 
-        /* Moon reflection (formerly sun reflection) */
+        /* Moon reflection */
         .sun-reflection {
             position: absolute;
             top: 50%;
@@ -288,7 +358,7 @@
             width: 0.75rem;
             height: 10rem;
             background: linear-gradient(to bottom, 
-                rgba(200, 200, 255, 0.2), /* Reflejo plateado/azulado */
+                rgba(200, 200, 255, 0.2),
                 rgba(220, 220, 255, 0.1), 
                 transparent
             );
@@ -355,7 +425,7 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom, 
-                rgba(0, 0, 50, 0.3), /* Azul muy oscuro */
+                rgba(0, 0, 50, 0.3),
                 rgba(0, 0, 70, 0.5), 
                 rgba(0, 0, 90, 0.7)
             );
@@ -366,7 +436,7 @@
             inset: 0;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(50, 50, 100, 0.2), /* Textura oscura */
+                rgba(50, 50, 100, 0.2),
                 transparent
             );
         }
@@ -396,7 +466,7 @@
             height: 7.5rem;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(255, 255, 255, 0.04), /* Ondas más sutiles */
+                rgba(255, 255, 255, 0.04),
                 transparent
             );
             border-radius: 50%;
@@ -516,7 +586,7 @@
             height: 0.5rem;
             background: linear-gradient(to right, 
                 transparent, 
-                rgba(255, 255, 255, 0.2), /* Espuma más sutil */
+                rgba(255, 255, 255, 0.2),
                 transparent
             );
             filter: blur(2px);
@@ -545,14 +615,14 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 10rem; /* tamaño de la playa */
+            height: 10rem;
         }
 
         .sand-base {
             position: absolute;
             inset: 0;
             background: linear-gradient(to top, 
-                rgba(30, 20, 10, 0.9), /* Tonos de arena más oscuros */
+                rgba(30, 20, 10, 0.9),
                 rgba(50, 40, 20, 0.8), 
                 rgba(70, 60, 40, 0.7)
             );
@@ -583,9 +653,9 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3rem; /* Ajustado proporcionalmente */
+            height: 3rem;
             background: linear-gradient(to bottom, 
-                rgba(10, 5, 0, 0.6), /* Arena mojada muy oscura */
+                rgba(10, 5, 0, 0.6),
                 transparent
             );
             clip-path: polygon(
@@ -641,6 +711,7 @@
             border-radius: 50%;
             filter: blur(2px);
         }
+        
         /* Mountains */
         .mountains {
             position: absolute;
@@ -656,7 +727,7 @@
             left: 0;
             width: 25%;
             height: 3rem;
-            background: rgba(50, 30, 80, 0.2); /* Montañas más oscuras */
+            background: rgba(50, 30, 80, 0.2);
             filter: blur(8px);
             transform: skewX(12deg);
         }
@@ -860,7 +931,7 @@
             background: linear-gradient(to bottom, 
                 transparent, 
                 transparent, 
-                rgba(50, 50, 100, 0.1) /* Efecto atmosférico oscuro */
+                rgba(50, 50, 100, 0.1)
             );
         }
 
@@ -868,7 +939,7 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle, 
-                rgba(150, 150, 200, 0.05), /* Resplandor lunar atmosférico */
+                rgba(150, 150, 200, 0.05),
                 transparent, 
                 transparent
             );
@@ -894,6 +965,7 @@
             left: 0.4rem;
             top: 0rem;
         }
+        
         /* Person 1 - Female */
         .person-1 {
             position: relative;
@@ -920,7 +992,6 @@
             opacity:0.9;
             transform: rotate(-20deg);
         }
-
 
         .person-1-hair-2 {
             position: absolute;
@@ -1286,6 +1357,10 @@
             .people {
                 gap: 2rem;
             }
+            
+            .lyric-line {
+                font-size: 1.2em;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1296,6 +1371,15 @@
             .people {
                 gap: 1.5rem;
                 transform: translateX(-50%) scale(0.8);
+            }
+            
+            .lyric-line {
+                font-size: 1.1em;
+            }
+            
+            .text {
+                max-width: 90%;
+                padding: 20px;
             }
         }
     </style>
@@ -1324,7 +1408,7 @@
             <div class="cloud-fg-2"></div>
         </div>
 
-        <!-- Moon (formerly Sun) -->
+        <!-- Moon -->
         <div class="sun-container">
             <div class="sun-corona-large"></div>
             <div class="sun-corona-medium"></div>
@@ -1333,7 +1417,7 @@
             </div>
         </div>
 
-        <!-- Moon reflection (formerly Sun reflection) -->
+        <!-- Moon reflection -->
         <div class="sun-reflection">
             <div class="reflection-main"></div>
             <div class="reflection-core"></div>
@@ -1548,29 +1632,26 @@
         ];
 
         // Define los índices de inicio de cada estrofa en el array 'lyrics'
-        // Cada número es el índice del array `lyrics` donde comienza una nueva estrofa.
         const stanzaStartIndices = [ 0, 1, 5, 9, 11, 16, 20, 21, 25, 27, 32, 36, 40, 45, 49, 51, 52];
 
-        let currentStanzaIndex = -1; // Índice de la estrofa actualmente visible
-        let lastVisibleLyricOriginalIndex = -1; // Último índice original de la línea que se hizo visible
+        let currentStanzaIndex = -1;
+        let lastVisibleLyricOriginalIndex = -1;
 
         // Función para obtener las líneas de una estrofa específica
         function getLinesForStanza(stanzaIdx) {
             const startIndex = stanzaStartIndices[stanzaIdx];
-            // El final de la estrofa es el inicio de la siguiente, o el final del array lyrics
             const endIndex = (stanzaIdx + 1 < stanzaStartIndices.length) ? stanzaStartIndices[stanzaIdx + 1] : lyrics.length;
             return lyrics.slice(startIndex, endIndex);
         }
 
         // Función para renderizar las líneas de la estrofa actual
         function renderCurrentStanzaLines(stanzaIdx) {
-            lyricsContainer.innerHTML = ''; // Limpiar contenedor
+            lyricsContainer.innerHTML = '';
             const linesToRender = getLinesForStanza(stanzaIdx);
             linesToRender.forEach((lyric) => {
                 const p = document.createElement('p');
-                p.classList.add('lyric-line'); // Inicialmente oculta por CSS
+                p.classList.add('lyric-line');
                 p.textContent = lyric.text;
-                // Usamos un data-attribute para almacenar el índice original de la línea en el array 'lyrics'
                 p.dataset.originalIndex = lyrics.indexOf(lyric);
                 lyricsContainer.appendChild(p);
             });
@@ -1581,6 +1662,17 @@
             const currentTime = audioPlayer.currentTime;
             let newStanzaIndex = -1;
             let latestLineToMakeVisibleOriginalIndex = -1;
+
+            // Verificar si la canción ha terminado
+            const lastLyricTime = lyrics[lyrics.length - 1].time;
+            if (currentTime > lastLyricTime + 2) { // 2 segundos después de la última línea
+                if (!lyricsContainer.classList.contains('hidden')) {
+                    lyricsContainer.classList.add('hidden');
+                    currentStanzaIndex = -1;
+                    lastVisibleLyricOriginalIndex = -1;
+                }
+                return; // Salir de la función si la canción ha terminado
+            }
 
             // 1. Determinar la estrofa actual
             for (let i = 0; i < stanzaStartIndices.length; i++) {
@@ -1595,17 +1687,16 @@
 
             // Si la estrofa ha cambiado, actualizar el contenido del contenedor
             if (newStanzaIndex !== currentStanzaIndex) {
-                lyricsContainer.classList.add('hidden'); // Iniciar fade-out
+                lyricsContainer.classList.add('hidden');
                 setTimeout(() => {
                     renderCurrentStanzaLines(newStanzaIndex);
-                    lyricsContainer.classList.remove('hidden'); // Iniciar fade-in
-                    lastVisibleLyricOriginalIndex = -1; // Resetear el índice de la última línea visible para la nueva estrofa
-                }, 200); // Transición más rápida
+                    lyricsContainer.classList.remove('hidden');
+                    lastVisibleLyricOriginalIndex = -1;
+                }, 300);
                 currentStanzaIndex = newStanzaIndex;
             }
 
             // 2. Determinar y mostrar las líneas activas dentro de la estrofa actual
-            // Solo si hay una estrofa visible y no estamos en medio de una transición de estrofa
             if (currentStanzaIndex !== -1 && !lyricsContainer.classList.contains('hidden')) {
                 const currentStanzaLines = getLinesForStanza(currentStanzaIndex);
                 
@@ -1618,13 +1709,11 @@
                 }
 
                 // Hacer visibles todas las líneas hasta la última que debería estarlo
-                // y que aún no lo está.
                 if (latestLineToMakeVisibleOriginalIndex > lastVisibleLyricOriginalIndex) {
                     for (let i = lastVisibleLyricOriginalIndex + 1; i <= latestLineToMakeVisibleOriginalIndex; i++) {
                         const lineElement = lyricsContainer.querySelector(`[data-original-index="${i}"]`);
                         if (lineElement) {
                             lineElement.classList.add('visible');
-                            // Desplazar la línea activa al centro de la vista dentro del contenedor de letras
                             lineElement.scrollIntoView({
                                 behavior: "smooth",
                                 block: "center"
@@ -1638,26 +1727,29 @@
 
         // Mostrar la primera estrofa al cargar
         renderCurrentStanzaLines(0);
-        currentStanzaIndex = 0; // Inicializar el índice de la estrofa actual
-        // La primera línea de la primera estrofa (índice 0) debe ser visible al inicio
+        currentStanzaIndex = 0;
         const initialLineElement = lyricsContainer.querySelector(`[data-original-index="0"]`);
         if (initialLineElement) {
             initialLineElement.classList.add('visible');
             lastVisibleLyricOriginalIndex = 0;
         }
 
-
         // Añadir el event listener para el evento 'timeupdate'
         audioPlayer.addEventListener('timeupdate', handleTimeUpdate);
 
-        // Manejar el autoplay: algunos navegadores pueden bloquear el autoplay sin interacción del usuario.
-        // Una forma de intentar iniciarlo es con un evento 'canplaythrough'
+        // Manejar el final de la canción
+        audioPlayer.addEventListener('ended', () => {
+            lyricsContainer.classList.add('hidden');
+            currentStanzaIndex = -1;
+            lastVisibleLyricOriginalIndex = -1;
+        });
+
+        // Manejar el autoplay
         audioPlayer.addEventListener('canplaythrough', () => {
             audioPlayer.play().catch(e => {
                 console.log("Autoplay blocked. User interaction might be required.", e);
-                // Aquí podrías mostrar un botón de "Reproducir" si el autoplay falla
             });
-        }, { once: true }); // Ejecutar solo una vez
+        }, { once: true });
     </script>
 </body>
 </html>
