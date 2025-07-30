@@ -1658,7 +1658,7 @@ const mobileControls = document.getElementById('mobileControls');
 const playPauseBtn = document.getElementById('playPauseBtn');
 const timeDisplay = document.getElementById('timeDisplay');
 const restartBtn = document.getElementById('restartBtn');
-const isMobil = /webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobil = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 // Define todas las líneas de la canción con sus tiempos absolutos
 const lyrics = [
     { time: 0, text: ""},
@@ -1916,14 +1916,7 @@ if (initialLineElement) {
     initialLineElement.classList.add('visible');
     lastVisibleLyricOriginalIndex = 0;
 }
-if (isMobil) {} else {
-// Manejar el autoplay
-audioPlayer.addEventListener('canplaythrough', () => {
-    audioPlayer.play().catch(e => {
-        console.log("Autoplay blocked. User interaction might be required.", e);
-    });
-}, { once: true });    
-}
+
 // Mostrar botón de reproducción en móviles o si el autoplay falla
 if (isMobile) {
     playButton.classList.remove('hidden');
